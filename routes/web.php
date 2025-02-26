@@ -15,7 +15,7 @@ use App\Http\Controllers\DashboardController;
 // Routes publiques
 Route::get('/', function () {
     return Inertia::render('Auth/Login');
-})->middleware('guest')->name('login');
+})->middleware('guest')->name('login.page');
 
 // Routes protégées par auth
 Route::middleware(['auth'])->group(function () {
