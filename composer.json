@@ -60,8 +60,6 @@
         ],
         "post-install-cmd": [
         "php artisan clear-compiled",
-        "npm install",
-        "npm run build",
         "php artisan optimize"
         ]
         
