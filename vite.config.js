@@ -18,10 +18,6 @@ export default defineConfig({
         }),
         
     ],
-    server: {
-        https: true,
-        // ...
-    },
     resolve: {
         alias: {
             '@': '/resources/js',
