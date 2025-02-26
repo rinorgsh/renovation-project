@@ -18,6 +18,9 @@ export default defineConfig({
         }),
         
     ],
+    build: {
+        outDir: 'public/build', // Spécifiez explicitement le dossier de build
+    },
     resolve: {
         alias: {
             '@': '/resources/js',
