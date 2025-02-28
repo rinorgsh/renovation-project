@@ -138,6 +138,7 @@
         <h2 class="section-title">Récapitulatif des produits</h2>
         
         <!-- Modification de la table des produits pour le responsive -->
+<!-- Modification de la table des produits pour le responsive -->
 <div class="products-table">
   <div class="table-header">
     <div class="col">Produit</div>
@@ -151,7 +152,8 @@
   <template v-for="(item, index) in selectedProducts" :key="index">
     <div class="table-row">
       <div class="col product-name" data-label="Produit">{{ item.produit.nom }}</div>
-      <div class="col" data-label="{{ getMesureLabel(item.produit.type) }}">{{ item.mesure }}</div>
+      <!-- Correction ici: utiliser v-bind (ou :) pour l'attribut data-label -->
+      <div class="col" :data-label="getMesureLabel(item.produit.type)">{{ item.mesure }}</div>
       <div class="col" data-label="Prix unitaire">{{ item.prix }}€</div>
       <div class="col" data-label="Total">{{ calculateLineTotal(item).toFixed(2) }}€</div>
       <div class="col actions">
