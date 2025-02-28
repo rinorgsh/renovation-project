@@ -586,7 +586,7 @@ const getStatusLabel = (bon) => {
 
 .status-not-signed {
   background-color: rgba(241, 196, 15, 0.1);
-  color: #f1c40f;
+  color: #ffe063;
 }
 
 /* Styles pour les badges de statut de paiement */
@@ -595,7 +595,7 @@ const getStatusLabel = (bon) => {
 }
 
 .status-waiting {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: rgba(255, 179, 37, 0.823);
   color: #ffffff;
 }
 

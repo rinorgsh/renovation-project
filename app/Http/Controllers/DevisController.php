@@ -190,6 +190,7 @@ class DevisController extends Controller
             );
         }
 
+        
         return Inertia::render('Devis/Show', [
             'devis' => $devis,
             'signature_url' => $signatureUrl

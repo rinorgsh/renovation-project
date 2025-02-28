@@ -288,10 +288,10 @@
   
   // Validation du formulaire
   const isFormValid = computed(() => {
-    return productLines.value.length > 0 && productLines.value.every(line => 
-      line.selectedProduct && line.prix > 0 && line.mesure > 0
-    );
-  });
+  return productLines.value.length > 0 && productLines.value.every(line => 
+    line.selectedProduct && line.prix >= 0 && line.mesure > 0
+  );
+});
   
   // Ajouter une ligne
   const addProductLine = () => {
