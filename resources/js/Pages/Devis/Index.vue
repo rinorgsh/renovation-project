@@ -313,4 +313,224 @@
       display: none;
     }
   }
+
+
+
+
+
+
+  /* Variables globales pour les breakpoints */
+:root {
+  --breakpoint-tablet: 768px;
+  --breakpoint-mobile: 480px;
+  --breakpoint-small-mobile: 320px;
+}
+
+/* Styles responsifs communs */
+@media (max-width: 768px) {
+  /* Styles pour tablettes */
+  .devis-container, 
+  .client-info-container, 
+  .product-selection-container,
+  .summary-container {
+    padding: 1rem;
+  }
+  
+  .section-title, .title {
+    font-size: 1.3rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+  
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-image-container {
+    margin-bottom: 1rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .next-btn, .modify-btn, .validate-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .table-header, .table-row {
+    grid-template-columns: 3fr 1fr 1fr;
+    font-size: 0.9rem;
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .col:nth-child(4), .col:nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Styles pour téléphones */
+  .devis-container, 
+  .client-info-container, 
+  .product-selection-container,
+  .summary-container {
+    padding: 0.75rem;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .remove-product-btn {
+    align-self: flex-end;
+    margin-top: -1.5rem;
+  }
+  
+  .section-title, .title {
+    font-size: 1.1rem;
+  }
+  
+  .form-label {
+    font-size: 0.9rem;
+  }
+  
+  .form-select, .form-input {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+  
+  .table-header, .table-row {
+    grid-template-columns: 2fr 1fr;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.3rem;
+  }
+  
+  .col:nth-child(3), .col:nth-child(4), .col:nth-child(5) {
+    display: none;
+  }
+  
+  .product-card {
+    padding: 0.75rem;
+  }
+  
+  .steps-indicator {
+    margin-bottom: 1.5rem;
+    gap: 0.5rem;
+  }
+  
+  .step {
+    padding: 0.5rem;
+  }
+  
+  .step-number {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+  
+  .step-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 320px) {
+  /* Styles pour petits téléphones */
+  .header-devis {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .title {
+    margin-left: 0;
+    font-size: 1rem;
+  }
+  
+  .back-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}
+/* Améliorations pour le composant principal */
+@media (max-width: 768px) {
+  .steps-indicator {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .steps-indicator::before {
+    left: 5%;
+    right: 5%;
+  }
+  
+  .step {
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+  
+  .step-number {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .step-label {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .devis-container {
+    border-radius: 8px;
+  }
+  
+  .header-devis {
+    margin-bottom: 1.5rem;
+  }
+  
+  .steps-indicator {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    position: relative;
+    margin-bottom: 1.75rem;
+  }
+  
+  .steps-indicator::before {
+    display: none;
+  }
+  
+  .step {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.75rem;
+  }
+  
+  .step.active {
+    background-color: rgba(49, 130, 206, 0.1);
+  }
+}
+
+@media (max-width: 320px) {
+  .devis-container {
+    padding: 0.5rem;
+  }
+  
+  .back-button {
+    font-size: 0.8rem;
+  }
+  
+  .title {
+    font-size: 1rem;
+  }
+}
   </style>

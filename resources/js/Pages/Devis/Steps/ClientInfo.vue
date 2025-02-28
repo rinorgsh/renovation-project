@@ -639,22 +639,132 @@
     box-shadow: none;
   }
   
-  /* Responsive */
-  @media (max-width: 768px) {
-    .client-selection-options {
-      flex-direction: column;
-    }
-    
-    .selection-option {
-      width: 100%;
-    }
-    
-    .form-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .form-group.col-span-2 {
-      grid-column: auto;
-    }
+
+  
+
+  /* Améliorations pour le composant d'informations client */
+@media (max-width: 768px) {
+  .client-selection-options {
+    flex-direction: column;
+    gap: 1rem;
   }
+  
+  .selection-option {
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  .selected-client-preview {
+    padding: 1rem;
+  }
+  
+  .client-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .client-name {
+    font-size: 1.1rem;
+  }
+  
+  .form-section {
+    padding: 1rem;
+  }
+  
+  .form-section-title {
+    font-size: 1rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .form-group.col-span-2 {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-section {
+    padding: 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .preview-header {
+    gap: 0.75rem;
+  }
+  
+  .client-detail {
+    font-size: 0.85rem;
+  }
+  
+  .address-content {
+    font-size: 0.85rem;
+  }
+  
+  .client-selection-options {
+    margin-bottom: 1.5rem;
+  }
+  
+  .selection-option {
+    padding: 0.75rem;
+  }
+  
+  .option-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .option-title {
+    font-size: 1rem;
+  }
+  
+  .option-description {
+    font-size: 0.8rem;
+  }
+  
+  .new-client-form {
+    gap: 1rem;
+  }
+  
+  .form-section {
+    padding: 0.75rem;
+  }
+  
+  .form-label {
+    font-size: 0.85rem;
+  }
+  
+  .form-section-title {
+    margin-bottom: 0.75rem;
+  }
+  
+  .next-btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .info-section {
+    padding: 0.75rem;
+  }
+  
+  .option-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+  
+  .form-section {
+    padding: 0.5rem;
+  }
+}
   </style>

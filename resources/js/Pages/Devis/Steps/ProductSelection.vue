@@ -137,7 +137,8 @@
       <div v-if="showSummaryOnly" class="summary-view">
         <h2 class="section-title">Récapitulatif des produits</h2>
         
-        <div class="products-table">
+        <!-- Modification de la table des produits pour le responsive -->
+<div class="products-table">
   <div class="table-header">
     <div class="col">Produit</div>
     <div class="col">{{ selectedProducts[0]?.produit?.type ? getMesureLabel(selectedProducts[0].produit.type) : 'Quantité' }}</div>
@@ -149,10 +150,10 @@
   <!-- Utilisez un div parent unique pour chaque produit et son commentaire -->
   <template v-for="(item, index) in selectedProducts" :key="index">
     <div class="table-row">
-      <div class="col product-name">{{ item.produit.nom }}</div>
-      <div class="col">{{ item.mesure }}</div>
-      <div class="col">{{ item.prix }}€</div>
-      <div class="col">{{ calculateLineTotal(item).toFixed(2) }}€</div>
+      <div class="col product-name" data-label="Produit">{{ item.produit.nom }}</div>
+      <div class="col" data-label="{{ getMesureLabel(item.produit.type) }}">{{ item.mesure }}</div>
+      <div class="col" data-label="Prix unitaire">{{ item.prix }}€</div>
+      <div class="col" data-label="Total">{{ calculateLineTotal(item).toFixed(2) }}€</div>
       <div class="col actions">
         <button 
           @click="removeProduct(index)"
@@ -788,5 +789,153 @@
 
 .comment-text {
   font-style: italic;
+}
+
+
+
+
+
+
+/* Améliorations pour le composant de sélection des produits */
+@media (max-width: 768px) {
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .product-image-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .product-name {
+    font-size: 1rem;
+    text-align: left;
+  }
+  
+  .add-product-btn, .validate-btn {
+    padding: 0.75rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .totals-card {
+    width: 100%;
+  }
+  
+  .table-row-comment {
+    grid-template-columns: 1fr;
+    padding: 0.5rem 1rem 1rem 1rem;
+  }
+  
+  .comment-label {
+    margin-bottom: 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-details {
+    gap: 0.5rem;
+  }
+  
+  .product-card {
+    padding: 0.75rem;
+  }
+  
+  .card-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+  
+  .product-details h3 {
+    font-size: 1rem;
+  }
+  
+  .product-specs {
+    gap: 0.75rem;
+  }
+  
+  .line-total {
+    padding: 0.75rem 0.75rem;
+    font-size: 1rem;
+  }
+  
+  .table-row, .table-header {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Mobile-first approche pour l'affichage des produits sélectionnés */
+  .products-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .table-header {
+    display: none; /* Cacher l'en-tête sur mobile */
+  }
+  
+  .table-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    gap: 0.5rem;
+  }
+  
+  .col {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem 0;
+  }
+  
+  .col::before {
+    content: attr(data-label);
+    font-weight: 600;
+  }
+  
+  .col.product-name {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .col.product-name::before {
+    content: "Produit";
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .product-image-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: auto;
+  }
 }
   </style>

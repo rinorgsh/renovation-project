@@ -1,78 +1,90 @@
 <template>
     <div class="app-container">
-      <!-- Sidebar Flottant -->
-      <div class="sidebar" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
+      <!-- Bouton hamburger visible sur iPad et mobile -->
+      <button class="hamburger-menu" @click="toggleMobileSidebar" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <!-- Overlay sombre quand le menu est ouvert sur mobile -->
+      <div 
+        v-if="mobileSidebarOpen" 
+        class="sidebar-overlay" 
+        @click="closeMobileSidebar"
+      ></div>
+  
+      <!-- Sidebar Flottant avec classe mobile quand ouvert sur mobile -->
+      <div 
+        class="sidebar" 
+        :class="{ 
+          'sidebar-collapsed': sidebarCollapsed && !mobileSidebarOpen, 
+          'sidebar-mobile-open': mobileSidebarOpen 
+        }"
+      >
         <div class="logo-container">
-          <div class="logo" v-if="!sidebarCollapsed">Admin Renowall</div>
+          <div class="logo" v-if="!sidebarCollapsed || mobileSidebarOpen">Admin Renowall</div>
           <button class="toggle-btn" @click="toggleSidebar">
-            <i class="fas" :class="sidebarCollapsed ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
+            <i class="fas" :class="sidebarCollapsed && !mobileSidebarOpen ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
+          </button>
+          <!-- Bouton pour fermer le menu sur mobile -->
+          <button class="close-mobile-menu" @click="closeMobileSidebar">
+            <i class="fas fa-times"></i>
           </button>
         </div>
         <div class="sidebar-menu">
           <a href="/home" class="menu-item" :class="{ active: currentPage === 'dashboard' }">
             <span class="menu-icon"><i class="fas fa-home"></i></span>
-            <span class="menu-text" v-if="!sidebarCollapsed">Tableau de Bord</span>
+            <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Tableau de Bord</span>
           </a>
           <a href="/devis" class="menu-item" :class="{ active: currentPage === 'devis' }">
             <span class="menu-icon"><i class="fas fa-file-invoice"></i></span>
-            <span class="menu-text" v-if="!sidebarCollapsed">Faire un devis</span>
+            <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Faire un devis</span>
           </a>
           <a href="/clients" class="menu-item" :class="{ active: currentPage === 'clients' }">
             <span class="menu-icon"><i class="fas fa-users"></i></span>
-            <span class="menu-text" v-if="!sidebarCollapsed">Clients</span>
+            <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Clients</span>
           </a>
           <a href="/bon-commande" class="menu-item" :class="{ active: currentPage === 'bon-commande' }">
             <span class="menu-icon"><i class="fas fa-file-alt"></i></span>
-            <span class="menu-text" v-if="!sidebarCollapsed">Bon de commande</span>
+            <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Bon de commande</span>
           </a>
           <a href="/info-prime" class="menu-item" :class="{ active: currentPage === 'info-prime' }">
             <span class="menu-icon"><i class="fas fa-info-circle"></i></span>
-            <span class="menu-text" v-if="!sidebarCollapsed">Info prime</span>
+            <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Info prime</span>
           </a>
         </div>
       </div>
   
-      <!-- Contenu Principal avec Header flottant -->
-      <div class="content-wrapper" :class="{ 'content-collapsed': sidebarCollapsed }">
-        <!-- Header flottant -->
-        <div class="header">
-          <div class="search-bar">
-            <input type="text" class="search-input" placeholder="Rechercher..." />
-          </div>
-          <div class="header-actions">
-            
-            <div class="user-profile" @click="toggleProfileMenu">
-              <div class="avatar">{{ userInitials }}</div>
-              <span v-if="!sidebarCollapsed">{{ userName }}</span>
-              
-              <!-- Menu déroulant du profil -->
-              <div v-show="showProfileMenu" class="profile-menu">
-                <div class="profile-info">
-                  <div class="profile-circle large">
-                    {{ userInitials }}
-                  </div>
-                  <p class="profile-name">{{ userName }}</p>
-                  <p class="profile-role">{{ userRole }}</p>
-                </div>
-                <hr>
-                <a href="/profil" class="menu-link">
-                  <i class="fas fa-user"></i>
-                  <span>Mon profil</span>
-                </a>
-                <a href="/parametres" class="menu-link">
-                  <i class="fas fa-cog"></i>
-                  <span>Paramètres</span>
-                </a>
-                <button @click="handleLogout" class="menu-link logout">
-                  <i class="fas fa-sign-out-alt"></i>
-                  <span>Déconnexion</span>
-                </button>
-                
-              </div>
+      <!-- Avatar flottant en haut à droite -->
+      <div class="floating-profile" @click="toggleProfileMenu">
+        <div class="avatar">{{ userInitials }}</div>
+        
+        <!-- Menu déroulant du profil -->
+        <div v-show="showProfileMenu" class="profile-menu">
+          <div class="profile-info">
+            <div class="profile-circle large">
+              {{ userInitials }}
             </div>
+            <p class="profile-name">{{ userName }}</p>
+            <p class="profile-role">{{ userRole }}</p>
           </div>
+          <hr>
+          <a href="/profil" class="menu-link">
+            <i class="fas fa-user"></i>
+            <span>Mon profil</span>
+          </a>
+          <a href="/parametres" class="menu-link">
+            <i class="fas fa-cog"></i>
+            <span>Paramètres</span>
+          </a>
+          <button @click="handleLogout" class="menu-link logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Déconnexion</span>
+          </button>
         </div>
+      </div>
   
+      <!-- Contenu Principal sans Header -->
+      <div class="content-wrapper" :class="{ 'content-collapsed': sidebarCollapsed && !mobileSidebarOpen }">
         <!-- Contenu principal -->
         <div class="main-content">
           <!-- Slot pour injecter le contenu -->
@@ -84,10 +96,9 @@
   
   <script>
   import { ref, computed, onMounted, onUnmounted } from 'vue';
-  import { router } from '@inertiajs/vue3'; // Ajoutez cette ligne
+  import { router } from '@inertiajs/vue3';
   import { usePage } from '@inertiajs/vue3';
-
-
+  
   export default {
     name: 'Layout',
     props: {
@@ -98,6 +109,7 @@
     },
     setup() {
       const sidebarCollapsed = ref(false);
+      const mobileSidebarOpen = ref(false);
       const userName = computed(() => user.value ? user.value.name : 'Invité');
       const userRole = ref('Vendeur');
       const showProfileMenu = ref(false);
@@ -110,12 +122,27 @@
         }
         return names[0][0].toUpperCase();
       });
-
+  
       const page = usePage();
       const user = computed(() => page.props.auth.user);
-
+  
       const toggleSidebar = () => {
         sidebarCollapsed.value = !sidebarCollapsed.value;
+      };
+      
+      const toggleMobileSidebar = () => {
+        mobileSidebarOpen.value = !mobileSidebarOpen.value;
+        // Empêcher le défilement du body quand le menu est ouvert
+        if (mobileSidebarOpen.value) {
+          document.body.classList.add('no-scroll');
+        } else {
+          document.body.classList.remove('no-scroll');
+        }
+      };
+      
+      const closeMobileSidebar = () => {
+        mobileSidebarOpen.value = false;
+        document.body.classList.remove('no-scroll');
       };
       
       const toggleProfileMenu = () => {
@@ -123,7 +150,7 @@
       };
       
       const closeProfileMenu = (e) => {
-        const profileElement = document.querySelector('.user-profile');
+        const profileElement = document.querySelector('.floating-profile');
         if (profileElement && !profileElement.contains(e.target)) {
           showProfileMenu.value = false;
         }
@@ -131,23 +158,35 @@
       
       const handleLogout = () => {
         router.post('/logout');
-        };
+      };
+      
+      // Gérer les changements de taille d'écran
+      const handleResize = () => {
+        if (window.innerWidth > 1024 && mobileSidebarOpen.value) {
+          closeMobileSidebar();
+        }
+      };
       
       onMounted(() => {
         document.addEventListener('click', closeProfileMenu);
+        window.addEventListener('resize', handleResize);
       });
       
       onUnmounted(() => {
         document.removeEventListener('click', closeProfileMenu);
+        window.removeEventListener('resize', handleResize);
       });
       
       return {
         sidebarCollapsed,
+        mobileSidebarOpen,
         userName,
         userRole,
         userInitials,
         showProfileMenu,
         toggleSidebar,
+        toggleMobileSidebar,
+        closeMobileSidebar,
         toggleProfileMenu,
         handleLogout
       };
@@ -168,6 +207,7 @@
     --bg-color: #f8fafc;
     --card-bg: #ffffff;
     --sidebar-width: 280px;
+    --sidebar-collapsed-width: 80px;
     --header-height: 70px;
     --gradient-sidebar: linear-gradient(135deg, #2d65ff 0%, #2020da 100%);
     --gradient-profile: linear-gradient(135deg, #040083 0%, #6f6f96 100%);
@@ -188,11 +228,67 @@
     color: var(--text-color);
   }
   
+  body.no-scroll {
+    overflow: hidden;
+  }
+  
   .app-container {
     display: flex;
     min-height: 100vh;
     padding: var(--main-padding);
     gap: var(--main-padding);
+    position: relative;
+  }
+  
+  /* Hamburger Menu Button */
+  .hamburger-menu {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1000;
+    background: var(--gradient-sidebar);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  .hamburger-menu:hover {
+    transform: scale(1.05);
+  }
+  
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 90;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Close mobile menu button */
+  .close-mobile-menu {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 5px;
   }
   
   /* Sidebar flottant */
@@ -212,7 +308,7 @@
   }
   
   .sidebar-collapsed {
-    width: 80px;
+    width: var(--sidebar-collapsed-width);
   }
   
   .logo-container {
@@ -302,106 +398,30 @@
     gap: var(--main-padding);
     margin-left: 0;
     transition: all 0.3s ease;
+    margin-top: 20px; /* Ajouter un peu d'espace en haut */
   }
   
   .content-collapsed {
     margin-left: 0;
   }
   
-  /* Header flottant */
+  /* Supprimer le header blanc */
   .header {
-    background-color: var(--card-bg);
-    border-radius: var(--border-radius);
-    height: var(--header-height);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 25px;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-    z-index: 99;
+    display: none; /* Cache complètement le header */
   }
   
-  .search-bar {
-    flex: 1;
-    max-width: 400px;
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 12px 18px;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    outline: none;
-    transition: all 0.2s ease;
-    background-color: #f5f7fa;
-    font-size: 15px;
-  }
-  
-  .search-input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
-    background-color: white;
-  }
-  
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .header-icon {
-    font-size: 20px;
-    color: var(--light-text);
+  /* Avatar flottant en haut à droite */
+  .floating-profile {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
     cursor: pointer;
-    position: relative;
-    width: 42px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    transition: all 0.2s ease;
   }
   
-  .header-icon:hover {
-    background-color: #f5f7fa;
-    color: var(--primary-color);
-  }
-  
-  .notification-badge {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    background-color: var(--danger-color);
-    color: white;
-    border-radius: 50%;
-    padding: 0 5px;
-    font-size: 12px;
-    min-width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .user-profile {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    padding: 5px 12px;
-    border-radius: 15px;
-    transition: all 0.2s ease;
-  }
-  
-  .user-profile:hover {
-    background-color: #f5f7fa;
-  }
-  
-  .avatar {
-    width: 40px;
-    height: 40px;
+  .floating-profile .avatar {
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background: var(--gradient-profile);
     color: white;
@@ -409,8 +429,13 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    margin-right: 10px;
     font-size: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+  
+  .floating-profile .avatar:hover {
+    transform: scale(1.05);
   }
   
   /* Main content area */
@@ -537,44 +562,91 @@
     .app-container {
       padding: 1rem;
       gap: 1rem;
+      padding-top: 80px;
     }
     
     .sidebar {
       height: calc(100vh - 2rem);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 80%;
+      max-width: 300px;
+      border-radius: 0;
+      transform: translateX(-100%);
+    }
+    
+    .sidebar-mobile-open {
+      transform: translateX(0);
+    }
+    
+    .hamburger-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sidebar-overlay {
+      display: block;
+    }
+    
+    .close-mobile-menu {
+      display: block;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    
+    .toggle-btn {
+      display: none;
+    }
+    
+    .content-wrapper {
+      width: 100%;
+      margin-left: 0 !important;
+    }
+    
+    .floating-profile {
+      top: 1rem;
+      right: 1rem;
+    }
+    
+    .floating-profile .avatar {
+      width: 40px;
+      height: 40px;
     }
   }
   
   @media (max-width: 768px) {
-    .app-container {
-      flex-direction: column;
-    }
-    
-    .sidebar {
-      width: 100%;
-      height: auto;
-      position: relative;
-      top: 0;
-    }
-    
-    .sidebar-collapsed {
-      width: 100%;
-    }
-    
-    .content-wrapper, .content-collapsed {
-      margin-left: 0;
+    .main-content {
+      padding: 20px;
     }
   }
   
   @media (max-width: 640px) {
-    .header {
-      flex-direction: column;
-      height: auto;
+    .main-content {
       padding: 15px;
-      gap: 15px;
     }
     
-    .search-bar {
-      max-width: 100%;
+    .floating-profile .profile-menu {
+      right: -70px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hamburger-menu {
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+    }
+    
+    .floating-profile .profile-menu {
+      width: 230px;
+    }
+    
+    .sidebar {
+      width: 85%;
     }
   }
   </style>

@@ -413,4 +413,143 @@ const submitOrder = () => {
     background-color: #ccc;
     cursor: not-allowed;
 }
+
+
+
+
+/* Améliorations pour le composant de récapitulatif de commande */
+@media (max-width: 768px) {
+  .summary-container {
+    padding: 1rem;
+  }
+  
+  .section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .client-info {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .product-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+  
+  .specs {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  
+  .signature-pad {
+    height: 150px;
+  }
+  
+  .confirm-button {
+    width: 100%;
+    justify-content: center;
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-container {
+    padding: 0.75rem;
+    border-radius: 8px;
+  }
+  
+  .section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .info-group {
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-card {
+    padding: 0.75rem;
+  }
+  
+  .product-details h3 {
+    font-size: 1rem;
+  }
+  
+  .description {
+    font-size: 0.85rem;
+  }
+  
+  .specs {
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+  }
+  
+  .totals-section {
+    margin: 1.5rem 0;
+    padding: 0.75rem;
+  }
+  
+  .total-line {
+    font-size: 0.9rem;
+  }
+  
+  .total-ttc {
+    font-size: 1.1rem;
+  }
+  
+  .signature-section {
+    margin: 1.5rem 0;
+  }
+  
+  .signature-pad {
+    height: 120px;
+  }
+  
+  .clear-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .confirm-button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .product-comment {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+    background-color: #f8fafc;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .summary-container {
+    padding: 0.5rem;
+  }
+  
+  .section {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  .specs {
+    grid-template-columns: 1fr;
+  }
+  
+  .signature-pad {
+    height: 100px;
+  }
+}
 </style>
