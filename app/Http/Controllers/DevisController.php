@@ -219,7 +219,7 @@ class DevisController extends Controller
         // Logique de génération de numéro de devis unique
         $lastDevis = Devis::orderBy('id', 'desc')->first();
         $newNumero = $lastDevis ? intval(substr($lastDevis->numero_devis, 2)) + 1 : 1;
-        return 'DV' . str_pad($newNumero, 4, '0', STR_PAD_LEFT);
+        return 'BC' . str_pad($newNumero, 4, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -264,18 +264,43 @@ class DevisController extends Controller
     }
 
     public function downloadPDF(Devis $devis)
-    {
-        // Charger les relations
-        $devis->load(['client', 'produits']);
+{
+    // Charger les relations
+    $devis->load(['client', 'produits']);
 
-        // Générer le PDF
-        $pdf = PDF::loadView('pdfs.devis', [
-            'devis' => $devis
-        ]);
-
-        // Télécharger le PDF
-        return $pdf->download("devis-{$devis->numero_devis}.pdf");
+    // Générer l'URL de signature si elle existe
+    $signatureUrl = null;
+    if ($devis->signature_path) {
+        try {
+            // Récupérer l'URL temporaire du fichier stocké sur S3
+            $signatureUrl = Storage::disk('s3')->temporaryUrl(
+                $devis->signature_path, 
+                now()->addHours(1) // Augmenter la durée de validité de l'URL
+            );
+            
+            // Vérifier que l'URL est bien générée
+            \Log::info('URL de signature générée : ' . $signatureUrl);
+        } catch (\Exception $e) {
+            \Log::error('Erreur de génération d\'URL de signature : ' . $e->getMessage());
+            \Log::error('Trace : ' . $e->getTraceAsString());
+        }
     }
+
+    // Générer le PDF
+    try {
+        $pdf = PDF::loadView('pdfs.devis', [
+            'devis' => $devis,
+            'signature_url' => $signatureUrl
+        ])->setOption('isRemoteEnabled', true);
+        
+        // Télécharger le PDF
+        return $pdf->download("BonDeCommande-{$devis->numero_devis}.pdf");
+    } catch (\Exception $e) {
+        \Log::error('Erreur lors de la génération du PDF : ' . $e->getMessage());
+        \Log::error('Trace : ' . $e->getTraceAsString());
+        return back()->with('error', 'Impossible de générer le PDF');
+    }
+}
 
     public function sendPDF(Devis $devis)
     {

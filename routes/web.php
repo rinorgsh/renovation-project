@@ -27,7 +27,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/devis', [DevisController::class, 'index'])->name('devis.index');
     Route::get('/devis/create', [DevisController::class, 'create'])->name('devis.create');
     Route::post('/devis', [DevisController::class, 'store'])->name('devis.store');
+
     Route::get('/devis/{devis}', [DevisController::class, 'show'])->name('devis.show');
+
     Route::get('/devis/{devis}/download', [DevisController::class, 'downloadPDF'])->name('devis.download');
     Route::post('/devis/{devis}/send-pdf', [DevisController::class, 'sendPDF'])->name('devis.send-pdf');
     Route::get('/devis/{devis}/edit', [DevisController::class, 'edit'])->name('devis.edit');
@@ -43,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/produits', [ProduitController::class, 'index'])->name('produits.index');
     Route::get('/bon-commande', [BonCommandeController::class, 'index'])->name('bon-commande.index');
 
+    
 });
 
 require __DIR__.'/auth.php';
