@@ -367,10 +367,9 @@
             <p>c) <strong>Parties</strong> : l'Acheteur et Renowall.</p>
             <p>d) <strong>Accord</strong> : tout accord entre l'Acheteur et Renowall, tout ajout ou modification à celui-ci et tous les actes juridiques qui en résultent pour la préparation et la mise en œuvre de l'accord.</p>
             <p>e) <strong>Prix</strong> : Le prix convenu entre le Client et Renowall et tout ajout ou modification y afférent.</p>
-            <p>f) <strong>Panneaux solaires</strong> : La vente, la livraison et l'installation du nombre de panneaux solaires commandés, de la structure de soutien des panneaux solaires, de l'onduleur et de la batterie ou non, à l'adresse convenue entre les parties.</p>
-            <p>g) <strong>Travaux de couverture</strong> : L'exécution des travaux de couverture convenus à l'adresse convenue entre les Parties.</p>
-            <p>h) <strong>Biens</strong> : tous les biens, tant pour le service Panneaux Solaires que pour le service Toiture, qui sont livrés à l'Acheteur par Renowall.</p>
-            <p>i) <strong>Adresse</strong> : lieu de livraison et lieu où les travaux seront exécutés.</p>
+            <p>f) <strong>Travaux de couverture</strong> : L'exécution des travaux de couverture convenus à l'adresse convenue entre les Parties.</p>
+            <p>g) <strong>Biens</strong> : tous les biens, tant pour le service Panneaux Solaires que pour le service Toiture, qui sont livrés à l'Acheteur par Renowall.</p>
+            <p>h) <strong>Adresse</strong> : lieu de livraison et lieu où les travaux seront exécutés.</p>
         </div>
 
         <div class="article">
@@ -421,20 +420,6 @@
             <p>Si l'Acheteur est un consommateur, Renowall est responsable envers l'Acheteur, conformément à l'article 1649quater (ancien) du Code civil, de tout défaut de conformité (c'est-à-dire non-conformité) qui existe au moment de la livraison des biens et qui se manifeste dans un délai de deux (2) ans à compter de la livraison susmentionnée.</p>
         </div>
 
-        <div class="article">
-            <h3>Article 9 : garanties commerciales pour les panneaux solaires</h3>
-            <p><strong>9.1 Renowall offre à l'Acheteur les garanties commerciales suivantes :</strong></p>
-            <p>• Garantie de trente (30) ans sur les panneaux solaires, à l'exception de l'onduleur ;</p>
-            <p>• Garantie de vingt-cinq (25) ans sur l'onduleur.</p>
-            <p>Les garanties commerciales ne s'appliquent pas si l'assurance prévoyait une couverture concernant d'éventuels dommages aux panneaux solaires et/ou à l'onduleur : l'acheteur doit fournir un certificat de non-couverture à la première demande de Renowall s'il souhaite réclamer l'une des garanties commerciales susmentionnées.</p>
-            
-            <p><strong>9.2 Par ailleurs, Renowall offre à l'Acheteur les garanties commerciales suivantes :</strong></p>
-            <p>• Dix (10) ans de conseils personnalisés en matière d'énergie, uniquement en ce qui concerne les biens fournis ;</p>
-            <p>• Garantie d'entretien de deux (2) ans, c'est-à-dire que pendant la période de deux (2) ans à compter de l'inspection, Renowall nettoiera les panneaux solaires une (1) fois par an à un moment à convenir, contrôlera l'onduleur et prendra une photo infrarouge des panneaux solaires.</p>
-            <p>• Garantie de travaux de dix (10) ans : cela signifie qu'au cours des dix (10) années suivant la livraison, Renowall est prêt à enlever et à réinstaller les panneaux solaires gratuitement si cela est nécessaire pour l'acheteur, par exemple en cas d'exécution de travaux sur le toit.</p>
-            
-            <p><strong>9.3 Dispositions communes aux garanties commerciales.</strong> Tous les délais de garantie mentionnés ci-dessus courent à partir de l'inspection. L'acheteur n'a pas droit aux garanties susmentionnées si les factures n'ont pas été intégralement payées. Les garanties commerciales sont limitées géographiquement aux livraisons en Belgique. Les garanties commerciales ne sont pas valorisables et ne peuvent pas être converties en un paiement de Renowall à l'Acheteur. Les garanties commerciales sont accordées personnellement à l'Acheteur (aux Acheteurs) dans la première ligne et ne peuvent pas être transférées à un troisième (acheteur) dans une deuxième ligne ou une ligne successive.</p>
-        </div>
 
         <div class="article">
             <h3>Article 10 : Achèvement des travaux de toiture</h3>
