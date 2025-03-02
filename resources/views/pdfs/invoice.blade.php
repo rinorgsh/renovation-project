@@ -147,7 +147,7 @@
             <strong>Renowall</strong><br>
             Oudesmidestraat 20,<br>
             1700 Dilbeek<br>
-            Tél: 01 23 45 67 89<br>
+            Tél: +32 479 76 04 42<br>
             Email: info@renowall.be<br>
             Web: www.renowall.be
         </div>
@@ -163,7 +163,7 @@
         <div class="proforma-info">
             <strong>Nombre:</strong> P-{{ str_replace('BC', '', $devis->numero_devis) }}<br>
             <strong>Date:</strong> {{ \Carbon\Carbon::now()->format('d/m/Y') }}<br>
-            <strong>Proforma:</strong> {{ date('d/m/Y', strtotime('+1 month')) }}
+            <strong>Proforma:</strong> {{ date('d/m/Y', strtotime('+14 days')) }}
         </div>
     </div>
     
@@ -231,7 +231,7 @@
     </div>
     
     <div class="notes">
-        Cette facture proforma est valable 30 jours à partir de la date d'émission. Les prix sont en euros et incluent la TVA au taux applicable.
+        Cette facture proforma est valable 14 jours à partir de la date d'émission. Les prix sont en euros et incluent la TVA au taux applicable.
     </div>
     
     <div class="footer">

@@ -230,7 +230,7 @@
                 <p>
                     Oudesmidestraat 20,<br>
                     1700 Dilbeek<br>
-                    Tél: 01 23 45 67 89<br>
+                    Tél: +32 479 76 04 42<br>
                     Email: info@renowall.be<br>
                     Web: www.renowall.be
                 </p>
