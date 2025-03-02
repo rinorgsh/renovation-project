@@ -302,6 +302,45 @@ class DevisController extends Controller
     }
 }
 
+public function downloadInvoice(Devis $devis)
+{
+    // Charger les relations
+    $devis->load(['client', 'produits']);
+
+    // Générer l'URL de signature si elle existe
+    $signatureUrl = null;
+    if ($devis->signature_path) {
+        try {
+            // Récupérer l'URL temporaire du fichier stocké sur S3
+            $signatureUrl = Storage::disk('s3')->temporaryUrl(
+                $devis->signature_path, 
+                now()->addHours(1) // Augmenter la durée de validité de l'URL
+            );
+            
+            // Vérifier que l'URL est bien générée
+            \Log::info('URL de signature générée : ' . $signatureUrl);
+        } catch (\Exception $e) {
+            \Log::error('Erreur de génération d\'URL de signature : ' . $e->getMessage());
+            \Log::error('Trace : ' . $e->getTraceAsString());
+        }
+    }
+
+    // Générer le PDF de la facture
+    try {
+        $pdf = PDF::loadView('pdfs.invoice', [
+            'devis' => $devis,
+            'signature_url' => $signatureUrl
+        ])->setOption('isRemoteEnabled', true);
+        
+        // Télécharger le PDF
+        return $pdf->download("Facture-{$devis->numero_devis}.pdf");
+    } catch (\Exception $e) {
+        \Log::error('Erreur lors de la génération de la facture PDF : ' . $e->getMessage());
+        \Log::error('Trace : ' . $e->getTraceAsString());
+        return back()->with('error', 'Impossible de générer la facture PDF');
+    }
+}
+    
     public function sendPDF(Devis $devis)
     {
         try {

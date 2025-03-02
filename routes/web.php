@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/devis/{devis}', [DevisController::class, 'show'])->name('devis.show');
 
     Route::get('/devis/{devis}/download', [DevisController::class, 'downloadPDF'])->name('devis.download');
+    Route::get('/devis/{devis}/download-invoice', [DevisController::class, 'downloadInvoice'])->name('devis.download-invoice');
     Route::post('/devis/{devis}/send-pdf', [DevisController::class, 'sendPDF'])->name('devis.send-pdf');
     Route::get('/devis/{devis}/edit', [DevisController::class, 'edit'])->name('devis.edit');
     Route::put('/devis/{devis}', [DevisController::class, 'update'])->name('devis.update');

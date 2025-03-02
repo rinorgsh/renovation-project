@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bon de Commande #{{ $devis->numero_devis }} - Renowall</title>
+    <title>Bon de Commande - Renowall</title>
     <style>
         body { 
             font-family: Arial, Helvetica, sans-serif;
@@ -240,9 +240,7 @@
         <div class="header-right">
             <div class="devis-box">
                 <h2>BON DE COMMANDE</h2>
-                <p><strong>N° :</strong> {{ $devis->numero_devis }}</p>
-                
-                
+                <p><strong>N° :</strong> {NUMERO_DEVIS}</p>
             </div>
         </div>
     </div>
@@ -251,67 +249,68 @@
     <div class="client-section clearfix">
         <div class="client-box">
             <h3 class="section-title">Informations Client</h3>
-            <p><strong>Nom :</strong> {{ $devis->client->prenom }} {{ $devis->client->nom }}</p>
-            <p><strong>Email :</strong> {{ $devis->client->email }}</p>
-            <p><strong>Téléphone :</strong> {{ $devis->client->telephone }}</p>
-            <p><strong>Adresse :</strong> {{ $devis->client->adresse }}, <br>{{ $devis->client->code_postal }} {{ $devis->client->ville }}</p>
+            <p><strong>Nom :</strong> {NOM_CLIENT}</p>
+            <p><strong>Email :</strong> {EMAIL_CLIENT}</p>
+            <p><strong>Téléphone :</strong> {TELEPHONE_CLIENT}</p>
+            <p><strong>Adresse :</strong> {ADRESSE_CLIENT}, <br>{CODE_POSTAL} {VILLE_CLIENT}</p>
         </div>
         
         <div class="project-box">
             <h3 class="section-title">Détails du Projet</h3>
             <p><strong>Type de projet :</strong> Rénovation</p>
-            <p><strong>Date :</strong> {{ $devis->created_at->format('d/m/Y') }}</p>
+            <p><strong>Date :</strong> {DATE_DEVIS}</p>
             <p><strong>Conseiller en énergie:</strong> Dimi Renowall</p>
-            
         </div>
     </div>
 
     <!-- Tableau des produits -->
     <table>
-    <thead>
-        <tr>
-            <th>Produit</th>
-            <th>Quantité</th>
-            <th>Prix Unitaire</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($devis->produits as $produit)
-        <tr>
-            <td>{{ $produit->nom }}</td>
-            <td>
-                {{ $produit->pivot->quantite }}
-                @switch($produit->type)
-                    @case('carre')
-                        m²
-                        @break
-                    @case('metre')
-                        m
-                        @break
-                    @default
-                        <!-- Ne rien afficher pour les unités unitaires -->
-                @endswitch
-            </td>
-            <td>{{ number_format($produit->pivot->prix_unitaire, 2) }}€</td>
-            <td>{{ number_format($produit->pivot->total_ligne, 2) }}€</td>
-        </tr>
-        @if($produit->pivot->commentaire)
-        <tr>
-            <td colspan="4" class="commentaire">
-                <strong>Note :</strong> {{ $produit->pivot->commentaire }}
-            </td>
-        </tr>
-        @endif
-        @endforeach
-    </tbody>
-</table>
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Isolation thermique du toit</td>
+                <td>85 m²</td>
+                <td>230,00€</td>
+                <td>19.550,00€</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="commentaire">
+                    <strong>Note :</strong> Pose d'isolant PIR 14cm avec valeur RD 6,35m²K/W
+                </td>
+            </tr>
+            <tr>
+                <td>Remplacement de la couverture</td>
+                <td>85 m²</td>
+                <td>60,00€</td>
+                <td>5.100,00€</td>
+            </tr>
+            <tr>
+                <td>EPDM toiture plate</td>
+                <td>24 m²</td>
+                <td>145,22€</td>
+                <td>3.485,28€</td>
+            </tr>
+            <tr>
+                <td>Façade avec isolation</td>
+                <td>78 m²</td>
+                <td>145,22€</td>
+                <td>11.327,16€</td>
+            </tr>
+        </tbody>
+    </table>
 
     <!-- Totaux -->
     <div class="totals">
-        <p><strong>Total HT :</strong> {{ number_format($devis->total_ht, 2) }}€</p>
-        <p><strong>TVA ({{ $devis->client->valeur_tva }}%) :</strong> {{ number_format($devis->total_tva, 2) }}€</p>
-        <p class="total-ttc"><strong>Total TTC :</strong> {{ number_format($devis->total_ttc, 2) }}€</p>
+        <p><strong>Total HT :</strong> 32.893,05€</p>
+        <p><strong>TVA (6%) :</strong> 1.973,58€</p>
+        <p class="total-ttc"><strong>Total TTC :</strong> 34.866,63€</p>
     </div>
 
     <!-- Conditions -->
@@ -322,29 +321,25 @@
         <p>Délai de livraison : à convenir avec le client après validation du bon de commande.</p>
     </div>
 
-<!-- Signatures -->
-<div class="signature-section clearfix">
-    <div class="signature-box">
-        <p><strong>Pour Renowall</strong><br>
-        Date : {{ $devis->created_at->format('d/m/Y') }}</p>
-        <!-- Espace vide pour signature manuelle -->
-        <div style="height: 100px; border-bottom: 1px dashed #ccc;"></div>
-    </div>
-    <div class="signature-box right">
-        <p><strong>Bon pour accord (client)</strong><br>
-        Date : {{ $devis->created_at->format('d/m/Y') }}</p>
-        @if(!empty($signature_url))
-            <img src="{{ $signature_url }}" alt="Signature Client" style="max-width: 200px; max-height: 100px;">
-        @else
+    <!-- Signatures -->
+    <div class="signature-section clearfix">
+        <div class="signature-box">
+            <p><strong>Pour Renowall</strong><br>
+            Date : {DATE_DEVIS}</p>
             <!-- Espace vide pour signature manuelle -->
             <div style="height: 100px; border-bottom: 1px dashed #ccc;"></div>
-        @endif
+        </div>
+        <div class="signature-box right">
+            <p><strong>Bon pour accord (client)</strong><br>
+            Date : {DATE_SIGNATURE}</p>
+            <!-- Espace vide pour signature manuelle -->
+            <div style="height: 100px; border-bottom: 1px dashed #ccc;"></div>
+        </div>
     </div>
-</div>
 
     <!-- Pied de page -->
     <div class="footer">
-        <p><strong>Renowall</strong> </p>
+        <p><strong>Renowall</strong></p>
         <p>Merci pour votre confiance. Pour toute question concernant ce bon de commande, n'hésitez pas à nous contacter.</p>
     </div>
 
@@ -404,11 +399,17 @@
             Tous les défauts visibles doivent être signalés au plus tard lors de la livraison (conformément à l'article 10).</p>
         </div>
 
+        <div class="page-number">Page 1 sur 2</div>
     </div>
 
+    <!-- Deuxième page des termes et conditions -->
+    <div class="page-break"></div>
 
     <div class="terms-conditions">
-        
+        <div class="terms-header">
+            <h2>TERMES ET CONDITIONS</h2>
+            <p>www.renowall.be</p>
+        </div>
 
         <div class="article">
             <h3>Article 7 : vices cachés</h3>
@@ -424,14 +425,14 @@
         <div class="article">
             <h3>Article 9 : garanties commerciales pour les panneaux solaires</h3>
             <p><strong>9.1 Renowall offre à l'Acheteur les garanties commerciales suivantes :</strong></p>
-            <p>• Garantie de trente (30) ans sur les panneaux solaires, à l'exception de l'onduleur ;</p>
-            <p>• Garantie de vingt-cinq (25) ans sur l'onduleur.</p>
+            <p><span class="checkmark">✓</span> Garantie de trente (30) ans sur les panneaux solaires, à l'exception de l'onduleur ;</p>
+            <p><span class="checkmark">✓</span> Garantie de vingt-cinq (25) ans sur l'onduleur.</p>
             <p>Les garanties commerciales ne s'appliquent pas si l'assurance prévoyait une couverture concernant d'éventuels dommages aux panneaux solaires et/ou à l'onduleur : l'acheteur doit fournir un certificat de non-couverture à la première demande de Renowall s'il souhaite réclamer l'une des garanties commerciales susmentionnées.</p>
             
             <p><strong>9.2 Par ailleurs, Renowall offre à l'Acheteur les garanties commerciales suivantes :</strong></p>
-            <p>• Dix (10) ans de conseils personnalisés en matière d'énergie, uniquement en ce qui concerne les biens fournis ;</p>
-            <p>• Garantie d'entretien de deux (2) ans, c'est-à-dire que pendant la période de deux (2) ans à compter de l'inspection, Renowall nettoiera les panneaux solaires une (1) fois par an à un moment à convenir, contrôlera l'onduleur et prendra une photo infrarouge des panneaux solaires.</p>
-            <p>• Garantie de travaux de dix (10) ans : cela signifie qu'au cours des dix (10) années suivant la livraison, Renowall est prêt à enlever et à réinstaller les panneaux solaires gratuitement si cela est nécessaire pour l'acheteur, par exemple en cas d'exécution de travaux sur le toit.</p>
+            <p><span class="checkmark">✓</span> Dix (10) ans de conseils personnalisés en matière d'énergie, uniquement en ce qui concerne les biens fournis ;</p>
+            <p><span class="checkmark">✓</span> Garantie d'entretien de deux (2) ans, c'est-à-dire que pendant la période de deux (2) ans à compter de l'inspection, Renowall nettoiera les panneaux solaires une (1) fois par an à un moment à convenir, contrôlera l'onduleur et prendra une photo infrarouge des panneaux solaires.</p>
+            <p><span class="checkmark">✓</span> Garantie de travaux de dix (10) ans : cela signifie qu'au cours des dix (10) années suivant la livraison, Renowall est prêt à enlever et à réinstaller les panneaux solaires gratuitement si cela est nécessaire pour l'acheteur, par exemple en cas d'exécution de travaux sur le toit.</p>
             
             <p><strong>9.3 Dispositions communes aux garanties commerciales.</strong> Tous les délais de garantie mentionnés ci-dessus courent à partir de l'inspection. L'acheteur n'a pas droit aux garanties susmentionnées si les factures n'ont pas été intégralement payées. Les garanties commerciales sont limitées géographiquement aux livraisons en Belgique. Les garanties commerciales ne sont pas valorisables et ne peuvent pas être converties en un paiement de Renowall à l'Acheteur. Les garanties commerciales sont accordées personnellement à l'Acheteur (aux Acheteurs) dans la première ligne et ne peuvent pas être transférées à un troisième (acheteur) dans une deuxième ligne ou une ligne successive.</p>
         </div>
@@ -456,57 +457,19 @@
         </div>
 
         <div class="article">
-            <h3>Article 12 : paiement</h3>
-            <p><strong>12.1</strong> Si aucune date d'échéance n'est indiquée sur la facture, la facture est payable dans un délai de trente (30) jours à compter de la date de réception de la facture par l'acheteur.</p>
-            <p><strong>12.2</strong> Les factures non payées à l'échéance sont majorées :</p>
-            <p>1. d'un intérêt de retard égal à l'intérêt au taux de référence visé à l'article 5, alinéa 2 de la loi du 2 août 2002 concernant la lutte contre le retard de paiement dans les transactions commerciales, majoré de 8%.</p>
-            <p>2. une indemnité forfaitaire de</p>
-            <p style="padding-left: 15px">a. € 20 si le solde est inférieur à € 150</p>
-            <p style="padding-left: 15px">b. 30 € + 10 % de la somme supérieure à 150 € si le solde est compris entre 150 € et 500 €</p>
-            <p style="padding-left: 15px">c. 65 € + 5 % de la somme supérieure à 500 €, avec un maximum de 2000 €, si le solde est supérieur à 500 €.</p>
-            <p><strong>12.3</strong> En ce qui concerne les entrepreneurs, les augmentations susmentionnées seront appliquées de plein droit et sans préavis à compter de la date d'échéance de la facture.</p>
-            <p><strong>12.4</strong> Le défaut de paiement d'une ou plusieurs factures, en tout ou en partie, à la date d'échéance autorise Renowall à suspendre l'exécution de tous les Contrats en cours avec l'Acheteur. En ce qui concerne les remboursements éventuels de Renowall, la loi du 2 août 2002 relative à la lutte contre le retard de paiement des factures de l'État est d'application.</p>
-        </div>
-
-        <div class="article">
-            <h3>Article 13 : réserve de propriété</h3>
-            <p>Tous les biens (vendus) restent la propriété de Renowall jusqu'à ce que l'Acheteur se soit acquitté de l'intégralité de ses obligations de paiement. L'Acheteur ne peut pas aliéner, incorporer, rendre immeuble par destination, donner en gage ou grever de tout autre droit ou garantie les Biens qui n'ont pas été payés en totalité. Si l'Acheteur vend néanmoins des Biens qui n'ont pas été payés (intégralement), la créance de l'Acheteur sur le tiers acheteur sera cédée de plein droit à Renowall (sans préjudice de tout autre recours que Renowall pourrait faire valoir contre l'Acheteur et/ou le tiers acheteur), étant entendu que cette cession ne libère en aucun cas l'Acheteur.</p>
-        </div>
-
-        <div class="article">
-            <h3>Article 14 : responsabilité</h3>
-            <p>Si l'Acheteur n'est pas un consommateur, Renowall ne sera responsable qu'en cas de non-respect de ses engagements essentiels, d'erreur grave ou de fraude. En aucun cas Renowall ne sera responsable des dommages indirects, intangibles ou consécutifs, tels que la perte de profit.</p>
-            <p>Renowall n'est pas responsable de tout dommage indirect, immatériel ou consécutif, tel que perte de profit ou de revenu, préjudice financier, préjudice commercial, perte d'information, dommage aux Biens ou dommage aux personnes. Dans tous les cas, la responsabilité de Renowall est limitée au prix de la partie de la commande qui est à l'origine du fait dommageable.</p>
-            <p>S'il y a un dommage dont Renowall, des tiers et/ou l'acheteur sont (conjointement) responsables, Renowall n'est responsable que dans la mesure où sa faute a contribué au dommage.</p>
-        </div>
-        <div class="article">
             <h3>Article 15 : droit de rétractation</h3>
             <p>Si l'acheteur est un consommateur, il a le droit de révoquer le présent contrat dans un délai de 14 (quatorze) jours sans donner de raisons. Le délai de rétractation expire conformément à l'article VI.47 du CDE.</p>
             <p>L'acheteur doit informer Renowall par écrit (par e-mail : <strong>info@renowall.be</strong>; et par courrier) de sa décision de résilier le contrat avant l'expiration du délai de rétractation (voir le formulaire type non contraignant : joint au BCE). Une copie du modèle de formulaire peut être obtenue auprès de Renowall à la première demande.</p>
             <p>Si l'Acheteur révoque le Contrat, l'Acheteur recevra de Renowall tous les paiements (y compris l'acompte) effectués par l'Acheteur jusqu'à ce moment, y compris les frais de livraison (à l'exception des frais supplémentaires si l'Acheteur a choisi un mode de livraison autre que la livraison standard la moins chère proposée par Renowall) au plus tard 14 (quatorze) jours après que Renowall a été informé de la décision de l'Acheteur de révoquer le Contrat. Aucun frais supplémentaire ne sera facturé pour ce remboursement.</p>
             <p>L'acheteur doit traiter le bien livré et son emballage avec soin. L'acheteur n'est responsable que de la dépréciation des Biens résultant d'une utilisation des Biens au-delà de ce qui est nécessaire pour établir la nature, les caractéristiques et le fonctionnement des Biens.</p>
         </div>
-        <div class="article">
-            <h3>Article 16 : Révision des prix</h3>
-            <p>Renowall a le droit d'indexer le prix convenu en fonction de l'évolution des salaires, des charges sociales, des prix des matériaux ou du transport, sur la base de la formule suivante :</p>
-            <p>P1 = P0 x (0,2 + (L1/L0) x 0,4 + (M1/M0) x 0,4), où :</p>
-            <p>- P1 = nouveau prix</p>
-            <p>- P0 = prix initial (année de base)</p>
-            <p>- L1 = coût de la main-d'œuvre pour une année donnée (c'est-à-dire l'année d'indexation)</p>
-            <p>- L0 = coût initial de la main-d'œuvre (année de base - indice des salaires en vigueur le mois précédant le bon de commande)</p>
-            <p>- M1 = coût des matériaux pour une année donnée (c'est-à-dire l'année d'indexation)</p>
-            <p>- M0 = coût original des matériaux (année de base - prix en vigueur le mois précédant le bon de commande)</p>
-        </div>
 
-        <div class="article">
-            <h3>Article 17 : Traitement des données à caractère personnel</h3>
-            <p>En ce qui concerne le traitement des données à caractère personnel dans le cadre de l'utilisation du site web, il est fait référence à la politique en matière de confidentialité et de cookies disponible à l'adresse www.renowall.be.</p>
-        </div>
         <div class="article">
             <h3>Article 18 : Droit applicable et juridiction compétente</h3>
             <p>Le droit belge est applicable. Si l'acheteur est un consommateur, seuls les tribunaux de l'arrondissement du domicile du défendeur et/ou ceux du lieu où les obligations (ou l'une d'entre elles) en litige sont nées ou sont, ont été ou doivent être exécutées sont compétents. Si l'acheteur n'est pas un consommateur, les tribunaux de l'arrondissement du siège social de Renowall sont compétents.</p>
         </div>
 
+        <div class="page-number">Page 2 sur 2</div>
     </div>
 </body>
 </html>

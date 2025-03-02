@@ -133,6 +133,13 @@
                         <i class="fas fa-download"></i>
                       </button>
                       <button 
+                        class="action-btn invoice-btn" 
+                        @click="downloadInvoice(bon.id)"
+                        title="Télécharger la facture"
+                        >
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        </button>
+                      <button 
                         class="action-btn email-btn" 
                         @click="sendPDFToClient(bon.id)"
                         >
@@ -345,6 +352,9 @@ const getStatusLabel = (bon) => {
     window.location.href = `/devis/${id}/download`;
 
   };
+  const downloadInvoice = (id) => {
+  window.location.href = `/devis/${id}/download-invoice`;
+};
 
   const sendPDFToClient = (id) => {
     router.post(`/devis/${id}/send-pdf`);
@@ -481,7 +491,10 @@ const getStatusLabel = (bon) => {
     align-items: center;
     gap: 1rem;
   }
-  
+  .invoice-btn:hover {
+  background-color: #e74c3c; /* Rouge pour la facture */
+  border-color: #e74c3c;
+}
   .search-input {
     padding: 0.5rem 1rem;
     border: 1px solid #e0e6ed;
