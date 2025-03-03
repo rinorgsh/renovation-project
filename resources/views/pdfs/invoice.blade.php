@@ -222,7 +222,7 @@
     </table>
     
     <div class="payment-info">
-        <strong>Veuillez utiliser cette communication:</strong> +++{{ $devis->numero_devis }}/{{ date('Y') }}+++<br><br>
+        <strong>Veuillez utiliser cette communication:</strong> +++473/1836/89012+++<br><br>
         
         <strong>Coordonnées bancaires:</strong><br>
         IBAN: BE24 0019 4626 0338<br>
@@ -235,7 +235,7 @@
     </div>
     
     <div class="footer">
-        <img src="{{ public_path('images/logo.png') }}" alt="Renowall" height="30">
+        <p>Qendrim</p>
         TVA BE 1014 312 865 | +32 479 76 04 42 | info@renowall.be | www.renowall.be
         <div style="text-align: right; margin-top: 5px;">{{ date('d/m/Y') }}</div>
     </div>

@@ -344,7 +344,8 @@
 
     <!-- Pied de page -->
     <div class="footer">
-        <p><strong>Renowall</strong> </p>
+        <p><strong>Qendrim</strong> </p>
+        <p>TVA BE 1014 312 865</p>
         <p>Merci pour votre confiance. Pour toute question concernant ce bon de commande, n'hésitez pas à nous contacter.</p>
     </div>
 
