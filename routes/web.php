@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/devis/{devis}/edit', [DevisController::class, 'edit'])->name('devis.edit');
     Route::put('/devis/{devis}', [DevisController::class, 'update'])->name('devis.update');
     Route::post('/devis/{devis}/update-status', [DevisController::class, 'updateStatus'])->name('devis.update-status');
+    Route::delete('/devis/{devis}', [DevisController::class, 'destroy'])->name('devis.destroy');
 
 
     // Routes des clients

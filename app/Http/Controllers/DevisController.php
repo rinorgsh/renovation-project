@@ -226,10 +226,16 @@ class DevisController extends Controller
      * Supprime un devis
      */
     public function destroy(Devis $devis)
-    {
+{
+    try {
         // Supprimer la signature de S3 si elle existe
         if ($devis->signature_path) {
-            Storage::disk('s3')->delete($devis->signature_path);
+            try {
+                Storage::disk('s3')->delete($devis->signature_path);
+            } catch (\Exception $e) {
+                \Log::error('Erreur lors de la suppression de la signature S3: ' . $e->getMessage());
+                // Continuer malgré l'erreur
+            }
         }
 
         // Détacher les produits
@@ -239,7 +245,12 @@ class DevisController extends Controller
         $devis->delete();
 
         return redirect()->route('devis.list')->with('success', 'Devis supprimé avec succès');
+    } catch (\Exception $e) {
+        \Log::error('Erreur lors de la suppression du devis: ' . $e->getMessage());
+        \Log::error('Trace: ' . $e->getTraceAsString());
+        return redirect()->back()->with('error', 'Impossible de supprimer le devis. Veuillez contacter l\'administrateur.');
     }
+}
 
     /**
      * Récupère la signature d'un devis
@@ -419,7 +430,10 @@ public function update(Request $request, Devis $devis)
     }
 
     // Mise à jour des informations du client
+    // Mise à jour des informations du client
     $client->update(array_filter([
+        'nom' => $clientData['nom'] ?? $client->nom,
+        'prenom' => $clientData['prenom'] ?? $client->prenom,
         'email' => $clientData['email'] ?? $client->email,
         'telephone' => $clientData['telephone'] ?? $client->telephone,
         'pays' => $clientData['pays'] ?? $client->pays,

@@ -132,6 +132,7 @@
                       >
                         <i class="fas fa-download"></i>
                       </button>
+                    
                       <button 
                         class="action-btn invoice-btn" 
                         @click="downloadInvoice(bon.id)"
@@ -145,9 +146,11 @@
                         >
                         <i class="fas fa-envelope"></i>
                     </button>
+
                     <button class="action-btn edit-btn" @click="editDevis(bon.id)">
                     <i class="fas fa-pen"></i>
                     </button>
+
                     <div class="status-dropdown">
                     <button class="action-btn status-btn" @click="toggleStatusMenu(bon.id)">
                     <i class="fas fa-dollar-sign"></i>
@@ -174,9 +177,19 @@
                     >
                         <i class="fas fa-check-circle"></i> Payé
                     </button>
+                    
                     </div>
-                </div>
+                    
 
+
+                </div>
+                <button 
+                    class="action-btn delete-btn" 
+                    @click="confirmDelete(bon.id)"
+                    title="Supprimer"
+                    >
+                    <i class="fas fa-trash"></i>
+                    </button>
                     </div>
                   </td>
                 </tr>
@@ -199,6 +212,21 @@
           </div>
         </div>
       </div>
+      <!-- Modal de confirmation de suppression -->
+    <div v-if="showDeleteConfirm" class="delete-modal-overlay">
+    <div class="delete-modal">
+        <div class="delete-modal-header">
+        <h3>Confirmation de suppression</h3>
+        </div>
+        <div class="delete-modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer ce bon de commande ? Cette action est irréversible.</p>
+        </div>
+        <div class="delete-modal-footer">
+        <button class="btn-cancel" @click="cancelDelete">Annuler</button>
+        <button class="btn-delete" @click="deleteDevis">Supprimer</button>
+        </div>
+    </div>
+    </div>
     </Layout>
   </template>
   
@@ -359,7 +387,33 @@ const getStatusLabel = (bon) => {
   const sendPDFToClient = (id) => {
     router.post(`/devis/${id}/send-pdf`);
     };
+// État pour la confirmation de suppression
+const showDeleteConfirm = ref(false);
+const devisToDelete = ref(null);
 
+// Afficher la confirmation avant suppression
+const confirmDelete = (id) => {
+  devisToDelete.value = id;
+  showDeleteConfirm.value = true;
+};
+
+// Exécuter la suppression
+const deleteDevis = () => {
+  if (!devisToDelete.value) return;
+  
+  router.delete(`/devis/${devisToDelete.value}`, {
+    onSuccess: () => {
+      showDeleteConfirm.value = false;
+      devisToDelete.value = null;
+    }
+  });
+};
+
+// Annuler la suppression
+const cancelDelete = () => {
+  showDeleteConfirm.value = false;
+  devisToDelete.value = null;
+};
   </script>
   
   <style scoped>
@@ -810,5 +864,95 @@ status-dropdown {
   .bon-commande-table td {
     padding: 0.5rem;
   }
+}
+.delete-btn:hover {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+/* Styles pour la modal de confirmation */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.delete-modal {
+  background-color: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delete-modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.delete-modal-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.25rem;
+}
+
+.delete-modal-body {
+  padding: 1.5rem;
+}
+
+.delete-modal-footer {
+  padding: 1rem 1.5rem;
+  background-color: #f8fafc;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-cancel {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #e0e6ed;
+  background-color: white;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #f1f5f9;
+}
+
+.btn-delete {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #e74c3c;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-delete:hover {
+  background-color: #c0392b;
 }
 </style>
