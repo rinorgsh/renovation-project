@@ -235,8 +235,8 @@
     </div>
     
     <div class="footer">
-        <p>Qendrim</p>
-        TVA BE 1014 312 865 | +32 479 76 04 42 | info@renowall.be | www.renowall.be
+        <p>Renowall</p>
+        TVA BE 1020 695 663 | +32 479 76 04 42 | info@renowall.be | www.renowall.be
         <div style="text-align: right; margin-top: 5px;">{{ date('d/m/Y') }}</div>
     </div>
 </body>
