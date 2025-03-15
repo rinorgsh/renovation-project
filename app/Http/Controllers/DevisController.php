@@ -66,8 +66,10 @@ class DevisController extends Controller
         $client = Client::findOrFail($clientData['existing_client_id']);
     } else {
         // Vérifier si un client avec cet email existe déjà
-        $existingClient = Client::where('email', $clientData['email'])->first();
-        
+        $existingClient = Client::where('nom', $clientData['nom'])
+        ->where('prenom', $clientData['prenom'])
+        ->first();
+
         if ($existingClient) {
             // Utiliser le client existant
             $client = $existingClient;
@@ -420,8 +422,9 @@ public function update(Request $request, Devis $devis)
         $client = Client::findOrFail($clientData['existing_client_id']);
     } else {
         // Vérifier si un client avec cet email existe déjà
-        $existingClient = Client::where('email', $clientData['email'])->first();
-        
+    $existingClient = Client::where('nom', $clientData['nom'])
+                            ->where('prenom', $clientData['prenom'])
+                            ->first();        
         if ($existingClient) {
             $client = $existingClient;
         } else {
