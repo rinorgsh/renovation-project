@@ -266,8 +266,8 @@
         </div>
     </div>
 
-    <!-- Tableau des produits -->
-    <table>
+<!-- Tableau des produits modifié -->
+<table>
     <thead>
         <tr>
             <th>Produit</th>
@@ -279,7 +279,14 @@
     <tbody>
         @foreach($devis->produits as $produit)
         <tr>
-            <td>{{ $produit->nom }}</td>
+            <td>
+                {{ $produit->nom }}
+                @if($produit->pivot->commentaire)
+                <div class="commentaire" style="margin-top: 5px; border-left: 3px solid #f0ad4e; padding-left: 10px;">
+                    <strong>Note :</strong> {{ $produit->pivot->commentaire }}
+                </div>
+                @endif
+            </td>
             <td>
                 {{ $produit->pivot->quantite }}
                 @switch($produit->type)
@@ -296,13 +303,6 @@
             <td>{{ number_format($produit->pivot->prix_unitaire, 2) }}€</td>
             <td>{{ number_format($produit->pivot->total_ligne, 2) }}€</td>
         </tr>
-        @if($produit->pivot->commentaire)
-        <tr>
-            <td colspan="4" class="commentaire">
-                <strong>Note :</strong> {{ $produit->pivot->commentaire }}
-            </td>
-        </tr>
-        @endif
         @endforeach
     </tbody>
 </table>
