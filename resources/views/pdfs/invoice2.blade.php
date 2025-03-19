@@ -134,36 +134,6 @@
             font-style: italic;
             font-size: 9pt;
         }
-        /* Ajouter ces styles au bloc CSS existant */
-        
-/* Styles pour les images de produits */
-table.product-table img {
-    max-width: 90px;
-    max-height: 90px;
-    border-radius: 4px;
-    object-fit: contain;
-}
-
-table.product-table th:first-child,
-table.product-table td:first-child {
-    width: 100px;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.product-image-placeholder {
-    width: 90px;
-    height: 90px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    font-size: 12px;
-    margin: 0 auto;
-}
     </style>
 </head>
 <body>
@@ -197,47 +167,36 @@ table.product-table td:first-child {
         </div>
     </div>
     
-    <!-- Modification du tableau des produits avec ajout de colonne image -->
-<table class="product-table">
-    <thead>
-        <tr>
-            <th style="width: 100px;">Image</th>
-            <th>Description</th>
-            <th>Nombre</th>
-            <th>Prix unitaire</th>
-            <th>TVA</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($devis->produits as $produit)
-        <tr>
-            <td style="text-align: center; vertical-align: middle; padding: 10px;">
-                @if($produit->image)
-                    <img src="{{ asset($produit->image) }}" alt="{{ $produit->nom }}" style="max-width: 90px; max-height: 90px; object-fit: contain;">
-                @else
-                    <div style="width: 90px; height: 90px; background-color: #f5f5f5; display: flex; align-items: center; justify-content: center;">
-                        <span style="color: #999; font-size: 12px;">Pas d'image</span>
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Nombre</th>
+                <th>Prix unitaire</th>
+                <th>TVA</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($devis->produits as $produit)
+            <tr>
+                <td>
+                    <strong>{{ $produit->nom }}</strong>
+                    <div class="product-description">
+                        {!! nl2br(e($produit->description ?? '')) !!}
+                        @if($produit->pivot->commentaire)
+                        <br><br>{{ $produit->pivot->commentaire }}
+                        @endif
                     </div>
-                @endif
-            </td>
-            <td>
-                <strong>{{ $produit->nom }}</strong>
-                <div class="product-description">
-                    {!! nl2br(e($produit->description ?? '')) !!}
-                    @if($produit->pivot->commentaire)
-                    <br><br>{{ $produit->pivot->commentaire }}
-                    @endif
-                </div>
-            </td>
-            <td>{{ $produit->pivot->quantite }}</td>
-            <td>€ {{ number_format($produit->pivot->prix_unitaire, 2) }}</td>
-            <td>{{ $devis->client->valeur_tva }}%</td>
-            <td>€ {{ number_format($produit->pivot->total_ligne, 2) }}</td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+                </td>
+                <td>{{ $produit->pivot->quantite }}</td>
+                <td>€ {{ number_format($produit->pivot->prix_unitaire, 2) }}</td>
+                <td>{{ $devis->client->valeur_tva }}%</td>
+                <td>€ {{ number_format($produit->pivot->total_ligne, 2) }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
     
     <table class="totals-table">
         <tr>

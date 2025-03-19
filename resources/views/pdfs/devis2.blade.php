@@ -219,39 +219,6 @@
             font-size: 9pt;
             font-style: italic;
         }
-        /* Styles pour les images de produits agrandies */
-.product-image {
-    max-width: 90px;
-    max-height: 90px;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    object-fit: cover;
-}
-
-.product-image-placeholder {
-    width: 90px;
-    height: 90px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    font-size: 12px;
-}
-
-/* Ajustements pour le tableau avec images plus grandes */
-table th.image-column {
-    width: 100px;
-}
-
-table td.image-cell {
-    text-align: center;
-    vertical-align: middle;
-    padding: 10px;
-}
-        
     </style>
 </head>
 <body>
@@ -299,12 +266,10 @@ table td.image-cell {
         </div>
     </div>
 
-<!-- Tableau des produits modifié avec colonne image -->
-<!-- Tableau des produits avec images plus grandes -->
+<!-- Tableau des produits modifié -->
 <table>
     <thead>
         <tr>
-            <th style="width: 100px;">Image</th>
             <th>Produit</th>
             <th>Quantité</th>
             <th>Prix Unitaire</th>
@@ -314,15 +279,6 @@ table td.image-cell {
     <tbody>
         @foreach($devis->produits as $produit)
         <tr>
-            <td style="text-align: center; vertical-align: middle; padding: 10px;">
-                @if($produit->image)
-                    <img src="{{ asset($produit->image) }}" alt="{{ $produit->nom }}" style="max-width: 90px; max-height: 90px; object-fit: contain;">
-                @else
-                    <div style="width: 90px; height: 90px; background-color: #f5f5f5; display: flex; align-items: center; justify-content: center;">
-                        <span style="color: #999; font-size: 12px;">Pas d'image</span>
-                    </div>
-                @endif
-            </td>
             <td>
                 {{ $produit->nom }}
                 @if($produit->pivot->commentaire)
@@ -350,6 +306,7 @@ table td.image-cell {
         @endforeach
     </tbody>
 </table>
+
     <!-- Totaux -->
     <div class="totals">
         <p><strong>Total HT :</strong> {{ number_format($devis->total_ht, 2) }}€</p>
