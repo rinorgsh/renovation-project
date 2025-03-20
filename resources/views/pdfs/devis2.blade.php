@@ -3,222 +3,235 @@
 <head>
     <title>Bon de Commande #{{ $devis->numero_devis }} - Renowall</title>
     <style>
-        body { 
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 1.5;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            font-size: 12pt;
-        }
-        
-        /* En-tête */
-        .header {
-            width: 100%;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-        
-        .header-left {
-            width: 60%;
-            float: left;
-        }
-        
-        .header-right {
-            width: 40%;
-            float: right;
-            text-align: right;
-        }
-        
-        .logo {
-            max-width: 200px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        
-        .company-info {
-            line-height: 1.4;
-        }
-        
-        .devis-box {
-            background-color: #f0f0f0;
-            padding: 10px;
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-        
-        .devis-box h2 {
-            margin: 0 0 10px 0;
-            font-size: 16pt;
-        }
-        
-        .devis-box p {
-            margin: 5px 0;
-        }
-        
-        /* Informations client */
-        .client-section {
-            width: 100%;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-        
-        .client-box {
-            width: 45%;
-            float: left;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-        }
-        
-        .project-box {
-            width: 45%;
-            float: right;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-        }
-        
-        .section-title {
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 14pt;
-            border-bottom: 2px solid #333;
-            padding-bottom: 5px;
-        }
-        
-        /* Tableau des produits */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-        
-        th {
-            background-color: #333;
-            color: white;
-            padding: 8px;
-            text-align: left;
-            font-weight: bold;
-        }
-        
-        td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        
-        .commentaire {
-            background-color: #fffacd;
-            font-style: italic;
-            padding: 5px 8px;
-        }
-        
-        /* Totaux */
-        .totals {
-            width: 300px;
-            float: right;
-            margin-bottom: 30px;
-        }
-        
-        .totals p {
-            text-align: right;
-            margin: 5px 0;
-        }
-        
-        .total-ttc {
-            font-weight: bold;
-            font-size: 14pt;
-            border-top: 2px solid #333;
-            padding-top: 5px;
-        }
-        
-        /* Conditions et signature */
-        .conditions {
-            clear: both;
-            margin: 30px 0;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-        }
-        
-        .signature-section {
-            width: 100%;
-            margin-top: 50px;
-            overflow: hidden;
-        }
-        
-        .signature-box {
-            width: 45%;
-            float: left;
-            border-top: 1px solid #000;
-            padding-top: 10px;
-        }
-        
-        .signature-box.right {
-            float: right;
-        }
-        
-        /* Pied de page */
-        .footer {
-            margin-top: 50px;
-            padding-top: 10px;
-            border-top: 1px solid #ddd;
-            text-align: center;
-            font-size: 10pt;
-            color: #666;
-            clear: both;
-        }
+ /* Style général */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    background-color: #fff;
+}
 
-        /* Clearfix */
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-        
-        /* Page break pour les termes et conditions */
-        .page-break {
-            page-break-before: always;
-        }
-        
-        /* Style spécifique pour les termes et conditions */
-        .terms-conditions {
-            font-size: 10pt; /* Texte plus petit pour les conditions */
-            padding-top: 20px;
-        }
-        
-        .terms-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .article {
-            margin-bottom: 15px;
-        }
-        
-        .article h3 {
-            margin-top: 15px;
-            margin-bottom: 10px;
-            font-size: 11pt;
-        }
-        
-        .checkmark {
-            font-size: 12pt;
-            color: #009900;
-            margin-right: 5px;
-        }
-        
-        .page-number {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 9pt;
-            font-style: italic;
-        }
+/* Utilitaires */
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.page-break {
+    page-break-before: always;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* En-tête */
+.header {
+    margin-bottom: 30px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 20px;
+}
+
+.header-left {
+    float: left;
+    width: 50%;
+}
+
+.header-right {
+    float: right;
+    width: 50%;
+    text-align: right;
+}
+
+.logo {
+    max-width: 200px;
+    margin-bottom: 10px;
+}
+
+.company-info {
+    color: #666;
+    font-size: 11px;
+}
+
+.devis-box {
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #0056b3;
+    display: inline-block;
+    min-width: 200px;
+}
+
+.devis-box h2 {
+    color: #0056b3;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* Informations client et projet */
+.client-section {
+    margin-bottom: 30px;
+}
+
+.client-box, .project-box {
+    float: left;
+    width: 48%;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    min-height: 160px;
+    box-sizing: border-box;
+}
+
+.project-box {
+    float: right;
+}
+
+.section-title {
+    color: #0056b3;
+    margin-top: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Tableau des produits */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.product-table th {
+    background-color: #0056b3;
+    color: white;
+    text-align: left;
+    padding: 10px;
+    font-weight: normal;
+}
+
+.product-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.product-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.product-description {
+    font-size: 11px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Totaux */
+.totals {
+    float: right;
+    width: 300px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    border-left: 4px solid #0056b3;
+}
+
+.total-ttc {
+    font-size: 14px;
+    color: #0056b3;
+    border-top: 1px solid #ddd;
+    padding-top: 5px;
+    margin-top: 5px;
+}
+
+/* Conditions */
+.conditions {
+    clear: both;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.conditions h3 {
+    color: #0056b3;
+    margin-top: 0;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+/* Signatures */
+.signature-section {
+    margin-bottom: 40px;
+}
+
+.signature-box {
+    float: left;
+    width: 48%;
+}
+
+.signature-box.right {
+    float: right;
+}
+
+/* Pied de page */
+.footer {
+    text-align: center;
+    font-size: 11px;
+    color: #666;
+    margin-top: 50px;
+    padding-top: 15px;
+    border-top: 2px solid #f0f0f0;
+}
+
+/* Termes et conditions */
+.terms-conditions {
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.terms-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.terms-header h2 {
+    color: #0056b3;
+    margin-bottom: 5px;
+}
+
+.article {
+    margin-bottom: 20px;
+}
+
+.article h3 {
+    color: #0056b3;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+/* Responsive design */
+@media print {
+    body {
+        padding: 10mm;
+    }
+    
+    .page-break {
+        page-break-before: always;
+    }
+    
+    .header, .client-section, .product-table, .totals, 
+    .conditions, .signature-section, .footer {
+        page-break-inside: avoid;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -266,46 +279,47 @@
         </div>
     </div>
 
-<!-- Tableau des produits modifié -->
-<table>
+    <table class="product-table">
     <thead>
         <tr>
-            <th>Produit</th>
-            <th>Quantité</th>
-            <th>Prix Unitaire</th>
+            <th style="width: 100px;">Image</th>
+            <th>Description</th>
+            <th>Nombre</th>
+            <th>Prix unitaire</th>
+            <th>TVA</th>
             <th>Total</th>
         </tr>
     </thead>
     <tbody>
         @foreach($devis->produits as $produit)
         <tr>
-            <td>
-                {{ $produit->nom }}
-                @if($produit->pivot->commentaire)
-                <div class="commentaire" style="margin-top: 5px; border-left: 3px solid #f0ad4e; padding-left: 10px;">
-                    <strong>Note :</strong> {{ $produit->pivot->commentaire }}
-                </div>
+            <td style="text-align: center; vertical-align: middle; padding: 10px;">
+                @if($produit->image)
+                    <img src="{{ asset($produit->image) }}" alt="{{ $produit->nom }}" style="max-width: 90px; max-height: 90px; object-fit: contain;">
+                @else
+                    <div style="width: 90px; height: 90px; background-color: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: #999; font-size: 12px;">Pas d'image</span>
+                    </div>
                 @endif
             </td>
             <td>
-                {{ $produit->pivot->quantite }}
-                @switch($produit->type)
-                    @case('carre')
-                        m²
-                        @break
-                    @case('metre')
-                        m
-                        @break
-                    @default
-                        <!-- Ne rien afficher pour les unités unitaires -->
-                @endswitch
+                <strong>{{ $produit->nom }}</strong>
+                <div class="product-description">
+                    {!! nl2br(e($produit->description ?? '')) !!}
+                    @if($produit->pivot->commentaire)
+                        <br><br>{{ $produit->pivot->commentaire }}
+                    @endif
+                </div>
             </td>
-            <td>{{ number_format($produit->pivot->prix_unitaire, 2) }}€</td>
-            <td>{{ number_format($produit->pivot->total_ligne, 2) }}€</td>
+            <td>{{ $produit->pivot->quantite }}</td>
+            <td>€ {{ number_format($produit->pivot->prix_unitaire, 2) }}</td>
+            <td>{{ $devis->client->valeur_tva }}%</td>
+            <td>€ {{ number_format($produit->pivot->total_ligne, 2) }}</td>
         </tr>
         @endforeach
     </tbody>
 </table>
+
 
     <!-- Totaux -->
     <div class="totals">
