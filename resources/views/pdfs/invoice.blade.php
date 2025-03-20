@@ -84,10 +84,13 @@
             font-size: 9pt;
         }
         
+        /* Styles modifiés pour garder le tableau des totaux sur une seule page */
         .totals-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 30px;
+            page-break-inside: avoid; /* Empêche la division du tableau */
+            break-inside: avoid; /* Propriété moderne pour éviter les sauts de page */
         }
         
         .totals-table td {
@@ -115,6 +118,7 @@
             text-align: center;
             font-size: 9pt;
             border-top: 1px solid #ddd;
+            margin-top: 20px;
         }
         
         .footer img {
@@ -127,6 +131,7 @@
             margin-top: 40px;
             border-top: 1px solid #ddd;
             padding-top: 10px;
+            page-break-before: avoid; /* Évite un saut de page avant les infos de paiement */
         }
         
         .notes {
@@ -136,34 +141,40 @@
         }
         /* Ajouter ces styles au bloc CSS existant */
         
-/* Styles pour les images de produits */
-table.product-table img {
-    max-width: 90px;
-    max-height: 90px;
-    border-radius: 4px;
-    object-fit: contain;
-}
+        /* Styles pour les images de produits */
+        table.product-table img {
+            max-width: 90px;
+            max-height: 90px;
+            border-radius: 4px;
+            object-fit: contain;
+        }
 
-table.product-table th:first-child,
-table.product-table td:first-child {
-    width: 100px;
-    text-align: center;
-    vertical-align: middle;
-}
+        table.product-table th:first-child,
+        table.product-table td:first-child {
+            width: 100px;
+            text-align: center;
+            vertical-align: middle;
+        }
 
-.product-image-placeholder {
-    width: 90px;
-    height: 90px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    font-size: 12px;
-    margin: 0 auto;
-}
+        .product-image-placeholder {
+            width: 90px;
+            height: 90px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+            margin: 0 auto;
+        }
+        
+        /* Conteneur pour le tableau des totaux et les informations de paiement */
+        .totals-payment-container {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
     </style>
 </head>
 <body>
@@ -246,36 +257,37 @@ table.product-table td:first-child {
     </tbody>
 </table>
     
-    <table class="totals-table">
-        <tr>
-            <td>Total HTVA</td>
-            <td>€ {{ number_format($devis->total_ht, 2) }}</td>
-        </tr>
-        <tr>
-            <td>Rabais</td>
-            <td>€ 0,00</td>
-        </tr>
-        <tr>
-            <td>TVA</td>
-            <td>€ {{ number_format($devis->total_tva, 2) }}</td>
-        </tr>
-        <tr>
-            <td>Total HTVA sans réduction</td>
-            <td>€ {{ number_format($devis->total_ht, 2) }}</td>
-        </tr>
-        <tr>
-            <td>Le total à payer</td>
-            <td>€ {{ number_format($devis->total_ttc, 2) }}</td>
-        </tr>
-    </table>
-    
-    <div class="payment-info">
-        <strong>Veuillez utiliser cette communication:</strong> +++473/1836/89012+++<br><br>
+    <!-- Conteneur qui regroupe le tableau des totaux et les informations de paiement -->
+    <div class="totals-payment-container">
+        <table class="totals-table">
+            <tr>
+                <td>Total HTVA</td>
+                <td>€ {{ number_format($devis->total_ht, 2) }}</td>
+            </tr>
+            <tr>
+                <td>Rabais</td>
+                <td>€ 0,00</td>
+            </tr>
+            <tr>
+                <td>TVA</td>
+                <td>€ {{ number_format($devis->total_tva, 2) }}</td>
+            </tr>
+            <tr>
+                <td>Total HTVA sans réduction</td>
+                <td>€ {{ number_format($devis->total_ht, 2) }}</td>
+            </tr>
+            <tr>
+                <td>Le total à payer</td>
+                <td>€ {{ number_format($devis->total_ttc, 2) }}</td>
+            </tr>
+        </table>
         
-        <strong>Coordonnées bancaires:</strong><br>
-        IBAN: BE24 0019 4626 0338<br>
-        
-        
+        <div class="payment-info">
+            <strong>Veuillez utiliser cette communication:</strong> +++473/1836/89012+++<br><br>
+            
+            <strong>Coordonnées bancaires:</strong><br>
+            IBAN: BE24 0019 4626 0338<br>
+        </div>
     </div>
     
     <div class="notes">

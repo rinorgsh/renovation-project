@@ -164,12 +164,21 @@ body {
     margin-top: 4px;
 }
 
-/* Totaux */
+/* Totaux - Modification pour éviter la séparation sur deux pages */
+.totals-container {
+    width: 100%;
+    clear: both;
+    page-break-inside: avoid; /* Empêcher la division du contenu */
+    break-inside: avoid; /* Propriété moderne pour éviter les sauts de page */
+}
+
 .totals {
     width: 300px;
     float: right;
     margin-top: 20px;
     margin-bottom: 30px;
+    page-break-inside: avoid; /* Assurez-vous que les totaux restent unis */
+    break-inside: avoid; /* Propriété moderne */
 }
 
 .totals p {
@@ -300,11 +309,13 @@ body {
     /* Éviter les sauts de page indésirables */
     .header, 
     .client-section, 
+    .totals-container,
     .totals, 
     .conditions, 
     .signature-section, 
     .footer {
         page-break-inside: avoid;
+        break-inside: avoid;
     }
 }
 
@@ -405,11 +416,13 @@ body {
 </table>
 
 
-    <!-- Totaux -->
-    <div class="totals">
-        <p><strong>Total HT :</strong> {{ number_format($devis->total_ht, 2) }}€</p>
-        <p><strong>TVA ({{ $devis->client->valeur_tva }}%) :</strong> {{ number_format($devis->total_tva, 2) }}€</p>
-        <p class="total-ttc"><strong>Total TTC :</strong> {{ number_format($devis->total_ttc, 2) }}€</p>
+    <!-- Totaux - Avec conteneur pour éviter la séparation -->
+    <div class="totals-container">
+        <div class="totals">
+            <p><strong>Total HT :</strong> {{ number_format($devis->total_ht, 2) }}€</p>
+            <p><strong>TVA ({{ $devis->client->valeur_tva }}%) :</strong> {{ number_format($devis->total_tva, 2) }}€</p>
+            <p class="total-ttc"><strong>Total TTC :</strong> {{ number_format($devis->total_ttc, 2) }}€</p>
+        </div>
     </div>
 
     <!-- Conditions -->
