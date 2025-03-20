@@ -230,7 +230,14 @@ table.product-table td:first-child {
                     @endif
                 </div>
             </td>
-            <td>{{ $produit->pivot->quantite }}</td>
+            <td>
+                {{ $produit->pivot->quantite }}
+                @if($produit->type == 'carre')
+                    m²
+                @elseif($produit->type == 'metre')
+                    m
+                @endif
+            </td>
             <td>€ {{ number_format($produit->pivot->prix_unitaire, 2) }}</td>
             <td>{{ $devis->client->valeur_tva }}%</td>
             <td>€ {{ number_format($produit->pivot->total_ligne, 2) }}</td>
