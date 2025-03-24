@@ -65,10 +65,20 @@ class DevisController extends Controller
         // Si un client existant est sélectionné, utiliser cet ID
         $client = Client::findOrFail($clientData['existing_client_id']);
     } else {
-        // Vérifier si un client avec cet email existe déjà
-        $existingClient = Client::where('nom', $clientData['nom'])
-        ->where('prenom', $clientData['prenom'])
-        ->first();
+        // Vérifier si un client avec cet ID personnel existe déjà
+        $existingClient = null;
+        
+        // Si personal_id est fourni, rechercher par personal_id
+        if (!empty($clientData['personal_id'])) {
+            $existingClient = Client::where('personal_id', $clientData['personal_id'])->first();
+        }
+        
+        // Si aucun client trouvé avec personal_id, chercher par nom et prénom
+        if (!$existingClient) {
+            $existingClient = Client::where('nom', $clientData['nom'])
+                ->where('prenom', $clientData['prenom'])
+                ->first();
+        }
 
         if ($existingClient) {
             // Utiliser le client existant
