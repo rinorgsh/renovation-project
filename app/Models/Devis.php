@@ -18,7 +18,9 @@ class Devis extends Model
         'signature_path',
         'signature_date',    // dans les fillable
         'date_validite',
-        'statut'
+        'statut',
+        'communication'  
+
     ];
 
     protected $casts = [

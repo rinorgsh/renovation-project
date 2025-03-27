@@ -283,7 +283,7 @@
         </table>
         
         <div class="payment-info">
-            <strong>Veuillez utiliser cette communication:</strong> +++473/1836/89012+++<br><br>
+        <strong>Veuillez utiliser cette communication:</strong> {{ $devis->communication }}<br><br>
             
             <strong>Coordonnées bancaires:</strong><br>
             IBAN: BE24 0019 4626 0338<br>
