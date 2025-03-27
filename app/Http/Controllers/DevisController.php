@@ -532,30 +532,30 @@ public function updateStatus(Request $request, Devis $devis)
     return redirect()->back()->with('success', 'Statut mis à jour avec succès');
 }
 
-private function generateStructuredCommunication($devisId)
+private function generateStructuredCommunication($devisId) 
 {
-    // On utilise l'année et le mois actuels + ID du devis pour plus de variété
-    $yearMonth = date('ym');
-    $uniqueNumber = $yearMonth . str_pad($devisId, 6, rand(1, 9), STR_PAD_LEFT);
+    // Récupérer l'année courante
+    $year = date('Y');
     
-    // S'assurer que nous avons 10 chiffres
-    $baseNumber = substr($uniqueNumber, 0, 10);
+    // Extraire les 3 premiers chiffres de l'année
+    $yearPart1 = substr($year, 0, 3); // Ex: 202 pour 2024
     
-    // On calcule le modulo 97 et on s'assure qu'il a 2 chiffres
+    // Extraire le dernier chiffre de l'année
+    $yearPart2 = substr($year, 3, 1); // Ex: 4 pour 2024
+    
+    // Formater le numéro de devis sur 6 chiffres
+    $devisFormatted = str_pad($devisId, 6, '0', STR_PAD_LEFT);
+    
+    // Construire le nombre à 10 chiffres
+    $baseNumber = $yearPart1 . $yearPart2 . $devisFormatted;
+    
+    // Calculer le modulo 97
     $modulo = (int)$baseNumber % 97;
-    if ($modulo === 0) {
-        $modulo = 97;
-    }
-    $checkDigits = str_pad($modulo, 2, '0', STR_PAD_LEFT);
+    $checkDigits = ($modulo === 0) ? '97' : str_pad($modulo, 2, '0', STR_PAD_LEFT);
     
-    // On forme le nombre complet (10 chiffres + 2 chiffres de contrôle)
-    $fullNumber = $baseNumber . $checkDigits;
-    
-    // On formate la communication structurée belge
-    $part1 = substr($fullNumber, 0, 3);
-    $part2 = substr($fullNumber, 3, 4);
-    $part3 = substr($fullNumber, 7, 5);
-    
-    return '+++' . $part1 . '/' . $part2 . '/' . $part3 . '+++';
+    // Formater la communication structurée
+    return '+++' . $yearPart1 . '/' . $yearPart2 . substr($devisFormatted, 0, 3) . '/' . 
+           substr($devisFormatted, 3, 3) . $checkDigits . '+++';
 }
+
 }
