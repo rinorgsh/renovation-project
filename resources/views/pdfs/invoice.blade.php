@@ -283,7 +283,7 @@
         </table>
         
         <div class="payment-info">
-        <strong>Veuillez utiliser cette communication:</strong> {{ $devis->communication }}<br><br>
+        <strong>Communication libre:</strong> Facture Renowall -  #{{ $devis->numero_devis }}<br><br>
             
             <strong>Coordonnées bancaires:</strong><br>
             IBAN: BE24 0019 4626 0338<br>
@@ -293,7 +293,9 @@
     <div class="notes">
         Cette facture proforma est valable 14 jours à partir de la date d'émission. Les prix sont en euros et incluent la TVA au taux applicable.
     </div>
-    
+    <br>
+    <br>
+
     <div class="footer">
         <p>Renowall</p>
         TVA BE 1020 695 663 | +32 479 76 04 42 | info@renowall.be | www.renowall.be
