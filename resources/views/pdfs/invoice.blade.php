@@ -188,7 +188,7 @@
             <strong>Renowall</strong><br>
             Oudesmidsestraat 20,<br>
             1700 Dilbeek<br>
-            Tél: +32 479 76 04 42<br>
+            Tél: +32 2 616 2280 <br>
             Email: info@renowall.be<br>
             Web: www.renowall.be
         </div>
@@ -298,7 +298,7 @@
 
     <div class="footer">
         <p>Renowall</p>
-        TVA BE 1020 695 663 | +32 479 76 04 42 | info@renowall.be | www.renowall.be
+        TVA BE 1020 695 663 | +32 2 616 2280 | info@renowall.be | www.renowall.be
         <div style="text-align: right; margin-top: 5px;">{{ date('d/m/Y') }}</div>
     </div>
 </body>
