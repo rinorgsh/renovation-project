@@ -391,9 +391,9 @@ body {
                 @endif
             </td>
             <td>
-                <strong>{{ $produit->nom }}</strong>
+                <strong>{{ $produit->nom_nl }}</strong>
                 <div class="product-description">
-                    {!! nl2br(e($produit->description ?? '')) !!}
+                    {!! nl2br(e($produit->description_nl ?? '')) !!}
                     @if($produit->pivot->commentaire)
                     <br><br>{{ $produit->pivot->commentaire }}
                     @endif
