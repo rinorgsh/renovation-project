@@ -119,119 +119,78 @@
                     </td>
                   <td>
                     <div class="action-cell">
-  <!-- Boutons principaux (toujours visibles) -->
-  <button 
-    class="action-btn view-btn" 
-    @click="viewBonCommande(bon.id)"
-    title="Voir"
-  >
-    <i class="fas fa-eye"></i>
-  </button>
-  
-  <button 
-    class="action-btn edit-btn" 
-    @click="editDevis(bon.id)"
-    title="Modifier"
-  >
-    <i class="fas fa-pen"></i>
-  </button>
+                        
+                      <button 
+                        class="action-btn view-btn" 
+                        @click="viewBonCommande(bon.id)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button 
+                        class="action-btn download-btn" 
+                        @click="downloadPDF(bon.id)"
+                      >
+                        <i class="fas fa-download"></i>
+                      </button>
+                    
+                      <button 
+                        class="action-btn invoice-btn" 
+                        @click="downloadInvoice(bon.id)"
+                        title="Télécharger la facture"
+                        >
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        </button>
+                      <button 
+                        class="action-btn email-btn" 
+                        @click="sendPDFToClient(bon.id)"
+                        >
+                        <i class="fas fa-envelope"></i>
+                    </button>
 
-  <!-- Bouton d'actions -->
-  <button 
-    class="action-btn more-btn" 
-    @click="openActionsModal(bon.id)"
-    title="Plus d'actions"
-  >
-    <i class="fas fa-ellipsis-v"></i>
-  </button>
-</div>
+                    <button class="action-btn edit-btn" @click="editDevis(bon.id)">
+                    <i class="fas fa-pen"></i>
+                    </button>
 
-<!-- Modal d'actions (en dehors du flux normal du document) -->
-<div v-if="activeActionsModal === bon.id" class="actions-modal-overlay" @click="closeActionsModal">
-  <div class="actions-modal" @click.stop>
-    <div class="actions-modal-header">
-      <h3>Actions pour le bon #{{ bon.numero_devis }}</h3>
-      <button class="close-modal-btn" @click="closeActionsModal">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    
-    <div class="actions-modal-body">
-      <!-- Documents FR -->
-      <div class="actions-section">
-        <h4 class="actions-section-title">Documents FR</h4>
-        <div class="actions-buttons">
-          <button class="action-modal-btn" @click="downloadPDF(bon.id); closeActionsModal()">
-            <i class="fas fa-download"></i> Bon de commande
-          </button>
-          <button class="action-modal-btn" @click="downloadInvoice(bon.id); closeActionsModal()">
-            <i class="fas fa-file-invoice-dollar"></i> Facture
-          </button>
-        </div>
-      </div>
-      
-      <!-- Documents NL -->
-      <div class="actions-section">
-        <h4 class="actions-section-title">Documents NL</h4>
-        <div class="actions-buttons">
-          <button class="action-modal-btn" @click="downloadDutchPDF(bon.id); closeActionsModal()">
-            <i class="fas fa-download"></i> Bestelbon
-          </button>
-          <button class="action-modal-btn" @click="downloadDutchInvoice(bon.id); closeActionsModal()">
-            <i class="fas fa-file-invoice-dollar"></i> Factuur
-          </button>
-        </div>
-      </div>
-      
-      <!-- Communication -->
-      <div class="actions-section">
-        <h4 class="actions-section-title">Communication</h4>
-        <button class="action-modal-btn" @click="sendPDFToClient(bon.id); closeActionsModal()">
-          <i class="fas fa-envelope"></i> Envoyer par email
-        </button>
-      </div>
-      
-      <!-- Statut de paiement -->
-      <div class="actions-section">
-        <h4 class="actions-section-title">Statut de paiement</h4>
-        <div class="actions-status-buttons">
-          <button 
-            class="action-status-btn" 
-            :class="{ active: bon.statut === 'en_attente' }"
-            @click="updateStatus(bon.id, 'en_attente'); closeActionsModal()"
-          >
-            <i class="fas fa-clock"></i> En attente
-          </button>
-          <button 
-            class="action-status-btn" 
-            :class="{ active: bon.statut === 'acompte' }"
-            @click="updateStatus(bon.id, 'acompte'); closeActionsModal()"
-          >
-            <i class="fas fa-money-bill-wave"></i> Acompte versé
-          </button>
-          <button 
-            class="action-status-btn" 
-            :class="{ active: bon.statut === 'paye' }"
-            @click="updateStatus(bon.id, 'paye'); closeActionsModal()"
-          >
-            <i class="fas fa-check-circle"></i> Payé
-          </button>
-        </div>
-      </div>
-      
-      <!-- Suppression -->
-      <div class="actions-section danger-section">
-        <h4 class="actions-section-title">Danger</h4>
-        <button 
-          class="action-modal-btn delete-btn" 
-          @click="confirmDelete(bon.id); closeActionsModal()"
-        >
-          <i class="fas fa-trash"></i> Supprimer ce bon de commande
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+                    <div class="status-dropdown">
+                    <button class="action-btn status-btn" @click="toggleStatusMenu(bon.id)">
+                    <i class="fas fa-dollar-sign"></i>
+                    </button>
+                    <div v-if="activeStatusMenu === bon.id" class="status-menu">
+                    <button 
+                        class="status-option" 
+                        :class="{ active: bon.statut === 'en_attente' }"
+                        @click="updateStatus(bon.id, 'en_attente')"
+                    >
+                        <i class="fas fa-clock"></i> En attente
+                    </button>
+                    <button 
+                        class="status-option"
+                        :class="{ active: bon.statut === 'acompte' }"
+                        @click="updateStatus(bon.id, 'acompte')"
+                    >
+                        <i class="fas fa-money-bill-wave"></i> Acompte versé
+                    </button>
+                    <button 
+                        class="status-option"
+                        :class="{ active: bon.statut === 'paye' }"
+                        @click="updateStatus(bon.id, 'paye')"
+                    >
+                        <i class="fas fa-check-circle"></i> Payé
+                    </button>
+                    
+                    </div>
+                    
+
+
+                </div>
+                <button 
+                    class="action-btn delete-btn" 
+                    @click="confirmDelete(bon.id)"
+                    title="Supprimer"
+                    >
+                    <i class="fas fa-trash"></i>
+                    </button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -291,18 +250,7 @@
     activeStatusMenu.value = id;
   }
 };
-// État pour la modal d'actions
-const activeActionsModal = ref(null);
 
-// Ouvrir la modal d'actions
-const openActionsModal = (id) => {
-  activeActionsModal.value = id;
-};
-
-// Fermer la modal d'actions
-const closeActionsModal = () => {
-  activeActionsModal.value = null;
-};
 // Fermer le menu de statut lors d'un clic ailleurs
 const closeStatusMenus = (e) => {
   if (!e.target.closest('.status-dropdown')) {
@@ -439,14 +387,6 @@ const getStatusLabel = (bon) => {
   const sendPDFToClient = (id) => {
     router.post(`/devis/${id}/send-pdf`);
     };
-
-    const downloadDutchPDF = (id) => {
-  window.location.href = `/devis/${id}/download-dutch`;
-};
-
-const downloadDutchInvoice = (id) => {
-  window.location.href = `/devis/${id}/download-dutch-invoice`;
-};
 // État pour la confirmation de suppression
 const showDeleteConfirm = ref(false);
 const devisToDelete = ref(null);
@@ -1014,211 +954,5 @@ status-dropdown {
 
 .btn-delete:hover {
   background-color: #c0392b;
-}
-.download-nl-btn:hover {
-  background-color: #2980b9; /* Different blue shade for Dutch download */
-  border-color: #2980b9;
-}
-
-.invoice-nl-btn:hover {
-  background-color: #c0392b; /* Darker red for Dutch invoice */
-  border-color: #c0392b;
-}
-/* Styles pour la modal d'actions */
-.actions-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
-
-.actions-modal {
-  background-color: white;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 500px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  animation: modalAppear 0.3s ease-out;
-}
-
-.actions-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.actions-modal-header h3 {
-  margin: 0;
-  color: #2c3e50;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.close-modal-btn {
-  background: none;
-  border: none;
-  color: #a0aec0;
-  cursor: pointer;
-  font-size: 1.1rem;
-  padding: 0.5rem;
-  transition: color 0.2s ease;
-}
-
-.close-modal-btn:hover {
-  color: #4a5568;
-}
-
-.actions-modal-body {
-  padding: 1.5rem;
-  max-height: 70vh;
-  overflow-y: auto;
-}
-
-.actions-section {
-  margin-bottom: 1.5rem;
-}
-
-.actions-section:last-child {
-  margin-bottom: 0;
-}
-
-.actions-section-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #4a5568;
-  margin: 0 0 0.8rem 0;
-}
-
-.actions-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
-.action-modal-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 1rem;
-  background-color: #f7fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  color: #4a5568;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.action-modal-btn:hover {
-  background-color: #edf2f7;
-  border-color: #cbd5e0;
-}
-
-.action-modal-btn i {
-  color: #4a90e2;
-}
-
-.actions-status-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
-.action-status-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 1rem;
-  background-color: #f7fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  color: #4a5568;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.action-status-btn:hover {
-  background-color: #edf2f7;
-  border-color: #cbd5e0;
-}
-
-.action-status-btn.active {
-  background-color: #ebf8ff;
-  border-color: #4299e1;
-  color: #2b6cb0;
-  font-weight: 500;
-}
-
-.action-status-btn.active i {
-  color: #3182ce;
-}
-
-.danger-section .actions-section-title {
-  color: #e53e3e;
-}
-
-.delete-btn {
-  background-color: #fff5f5;
-  border-color: #fed7d7;
-  color: #e53e3e;
-}
-
-.delete-btn:hover {
-  background-color: #fed7d7;
-  border-color: #fc8181;
-}
-
-.delete-btn i {
-  color: #e53e3e !important;
-}
-/* Ajustements supplémentaires pour mobile */
-@media (max-width: 768px) {
-  /* Adaptations existantes... */
-  
-  /* Rendre les boutons d'action un peu plus grands pour faciliter les interactions tactiles */
-  .action-btn {
-    width: 44px;
-    height: 44px;
-  }
-  
-  /* Assurer que la modal d'actions prend plus d'espace sur mobile */
-  .actions-modal {
-    max-width: 95%;
-    max-height: 90vh;
-  }
-  
-  /* Augmenter la taille de clic pour les boutons de la modal */
-  .action-modal-btn, 
-  .action-status-btn {
-    padding: 0.85rem 1rem;
-  }
-}
-
-/* Petits écrans comme les iPhone SE */
-@media (max-width: 375px) {
-  /* Simplifier encore plus sur très petits écrans */
-  .bon-commande-table {
-    font-size: 0.8rem;
-  }
-  
-  .bon-commande-table td {
-    padding: 0.5rem 0.3rem;
-  }
-  
-  /* S'assurer que la cellule d'action ne déborde pas */
-  .action-cell {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
 }
 </style>

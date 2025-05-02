@@ -558,4 +558,71 @@ private function generateStructuredCommunication($devisId)
            substr($devisFormatted, 3, 3) . $checkDigits . '+++';
 }
 
+public function downloadDutchPDF(Devis $devis)
+{
+    // Charger les relations
+    $devis->load(['client', 'produits']);
+
+    // Générer l'URL de signature si elle existe
+    $signatureUrl = null;
+    if ($devis->signature_path) {
+        try {
+            // Récupérer l'URL temporaire du fichier stocké sur S3
+            $signatureUrl = Storage::disk('s3')->temporaryUrl(
+                $devis->signature_path, 
+                now()->addHours(1)
+            );
+        } catch (\Exception $e) {
+            \Log::error('Erreur de génération d\'URL de signature : ' . $e->getMessage());
+        }
+    }
+
+    // Générer le PDF en néerlandais
+    try {
+        $pdf = PDF::loadView('pdfs.devis_dutch', [
+            'devis' => $devis,
+            'signature_url' => $signatureUrl
+        ])->setOption('isRemoteEnabled', true);
+        
+        // Télécharger le PDF
+        return $pdf->download("Bestelbon-{$devis->numero_devis}.pdf");
+    } catch (\Exception $e) {
+        \Log::error('Erreur lors de la génération du PDF néerlandais : ' . $e->getMessage());
+        return back()->with('error', 'Impossible de générer le PDF en néerlandais');
+    }
+}
+
+public function downloadDutchInvoice(Devis $devis)
+{
+    // Charger les relations
+    $devis->load(['client', 'produits']);
+
+    // Générer l'URL de signature si elle existe
+    $signatureUrl = null;
+    if ($devis->signature_path) {
+        try {
+            // Récupérer l'URL temporaire du fichier stocké sur S3
+            $signatureUrl = Storage::disk('s3')->temporaryUrl(
+                $devis->signature_path, 
+                now()->addHours(1)
+            );
+        } catch (\Exception $e) {
+            \Log::error('Erreur de génération d\'URL de signature : ' . $e->getMessage());
+        }
+    }
+
+    // Générer le PDF de la facture en néerlandais
+    try {
+        $pdf = PDF::loadView('pdfs.invoice_dutch', [
+            'devis' => $devis,
+            'signature_url' => $signatureUrl
+        ])->setOption('isRemoteEnabled', true);
+        
+        // Télécharger le PDF
+        return $pdf->download("Factuur-{$devis->numero_devis}.pdf");
+    } catch (\Exception $e) {
+        \Log::error('Erreur lors de la génération de la facture PDF néerlandaise : ' . $e->getMessage());
+        return back()->with('error', 'Impossible de générer la facture PDF en néerlandais');
+    }
+}
 }

@@ -47,6 +47,10 @@
             <span class="menu-icon"><i class="fas fa-file-alt"></i></span>
             <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Bon de commande</span>
           </a>
+          <a href="/produits" class="menu-item" :class="{ active: currentPage === 'produits' }">
+            <span class="menu-icon"><i class="fas fa-boxes"></i></span>
+            <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Gérer les produits</span>
+          </a>
           <a href="/info-prime" class="menu-item" :class="{ active: currentPage === 'info-prime' }">
             <span class="menu-icon"><i class="fas fa-info-circle"></i></span>
             <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Info prime</span>

@@ -38,6 +38,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/devis/{devis}/update-status', [DevisController::class, 'updateStatus'])->name('devis.update-status');
     Route::delete('/devis/{devis}', [DevisController::class, 'destroy'])->name('devis.destroy');
 
+    //ndls
+    Route::get('/devis/{devis}/download-dutch', [DevisController::class, 'downloadDutchPDF'])
+    ->name('devis.download-dutch');
+    Route::get('/devis/{devis}/download-dutch-invoice', [DevisController::class, 'downloadDutchInvoice'])
+    ->name('devis.download-dutch-invoice');
 
     // Routes des clients
     Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
@@ -47,6 +52,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/produits', [ProduitController::class, 'index'])->name('produits.index');
     Route::get('/bon-commande', [BonCommandeController::class, 'index'])->name('bon-commande.index');
 
+    Route::get('/produits', [ProduitController::class, 'index'])->name('produits.index');
+    Route::post('/produits', [ProduitController::class, 'store'])->name('produits.store');
+    Route::get('/produits/{produit}', [ProduitController::class, 'show'])->name('produits.show');
+    Route::put('/produits/{produit}', [ProduitController::class, 'update'])->name('produits.update');
+    Route::delete('/produits/{produit}', [ProduitController::class, 'destroy'])->name('produits.destroy');
     
 });
 
