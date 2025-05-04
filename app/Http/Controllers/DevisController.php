@@ -152,6 +152,7 @@ class DevisController extends Controller
         // Création du devis
         $devis = Devis::create([
             'client_id' => $client->id,
+            'user_id' => auth()->id(),  // Ajoutez l'ID de l'utilisateur connecté
             'numero_devis' => $this->generateNumeroDevis(),
             'total_ht' => $request->input('total_ht'),
             'total_tva' => $request->input('total_tva'),
@@ -184,6 +185,9 @@ class DevisController extends Controller
      */
     public function show(Devis $devis)
     {
+        if ($devis->user_id !== auth()->id()) {
+            abort(403, 'Non autorisé');
+        }
         // Charger les relations client et produits
         $devis->load(['client', 'produits']);
 
@@ -207,15 +211,16 @@ class DevisController extends Controller
      * Liste tous les devis
      */
     public function list()
-    {
-        $devis = Devis::with(['client'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+{
+    $devis = Devis::with(['client'])
+        ->where('user_id', auth()->id())  // Filtrer par utilisateur connecté
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
 
-        return Inertia::render('Devis/List', [
-            'devis' => $devis
-        ]);
-    }
+    return Inertia::render('Devis/List', [
+        'devis' => $devis
+    ]);
+}
 
     /**
      * Génère un numéro de devis unique

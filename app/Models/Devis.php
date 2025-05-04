@@ -11,16 +11,16 @@ class Devis extends Model
 
     protected $fillable = [
         'client_id',
+        'user_id',  // Ajoutez ceci
         'numero_devis',
         'total_ht',
         'total_tva',
         'total_ttc',
         'signature_path',
-        'signature_date',    // dans les fillable
+        'signature_date',
         'date_validite',
         'statut',
-        'communication'  
-
+        'communication'
     ];
 
     protected $casts = [
@@ -36,6 +36,10 @@ class Devis extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     // Relation avec les produits
     public function produits()
     {

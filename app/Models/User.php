@@ -32,7 +32,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    public function devis()
+    {
+        return $this->hasMany(Devis::class);
+    }
     /**
      * Get the attributes that should be cast.
      *
