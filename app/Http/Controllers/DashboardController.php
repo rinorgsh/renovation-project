@@ -10,9 +10,13 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Récupérer tous les devis avec leur relation client
-        $devis = Devis::with('client')->get();
+        // Récupérer seulement les devis de l'utilisateur connecté avec leur relation client
+        $devis = Devis::with('client')
+                      ->where('user_id', Auth::id())
+                      ->get();
+        
         $user = Auth::user();
+        
         return Inertia::render('Home', [
             'devis' => $devis
         ]);
