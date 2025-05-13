@@ -45,8 +45,8 @@ Route::middleware(['auth'])->group(function () {
     ->name('devis.download-dutch-invoice');
 
     // Routes des clients
-    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
-    Route::get('/clients/{client}', [ClientController::class, 'show'])->name('clients.show');
+    //Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+    //Route::get('/clients/{client}', [ClientController::class, 'show'])->name('clients.show');
 
     // Routes des produits
     Route::get('/produits', [ProduitController::class, 'index'])->name('produits.index');

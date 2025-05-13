@@ -39,10 +39,11 @@
             <span class="menu-icon"><i class="fas fa-file-invoice"></i></span>
             <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Faire un devis</span>
           </a>
+          <!--
           <a href="/clients" class="menu-item" :class="{ active: currentPage === 'clients' }">
             <span class="menu-icon"><i class="fas fa-users"></i></span>
             <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Clients</span>
-          </a>
+          </a>-->
           <a href="/bon-commande" class="menu-item" :class="{ active: currentPage === 'bon-commande' }">
             <span class="menu-icon"><i class="fas fa-file-alt"></i></span>
             <span class="menu-text" v-if="!sidebarCollapsed || mobileSidebarOpen">Bon de commande</span>

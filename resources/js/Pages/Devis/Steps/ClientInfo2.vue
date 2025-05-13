@@ -4,7 +4,6 @@
         <h2 class="section-title">Sélection du client</h2>
         
         <!-- Options de sélection client -->
-        <!-- Commenté pour désactiver la fonctionnalité de sélection client
         <div class="client-selection-options">
           <div 
             class="selection-option" 
@@ -34,10 +33,8 @@
             </div>
           </div>
         </div>
-        -->
         
         <!-- Sélection d'un client existant -->
-        <!-- Commenté pour désactiver la fonctionnalité de sélection client
         <div v-if="clientType === 'existing'" class="client-dropdown-container">
           <label class="form-label">Sélectionnez un client dans la liste</label>
           <div class="custom-select">
@@ -50,7 +47,7 @@
             <i class="select-icon fas fa-chevron-down"></i>
           </div>
           
-          <-- Aperçu du client sélectionné 
+          <!-- Aperçu du client sélectionné -->
           <div v-if="selectedClientId && clientPreview" class="selected-client-preview">
             <div class="preview-header">
               <div class="client-avatar">{{ getInitials(clientPreview.prenom, clientPreview.nom) }}</div>
@@ -68,11 +65,9 @@
             </div>
           </div>
         </div>
-        -->
         
         <!-- Formulaire pour nouveau client -->
-        <!-- Modifié la condition pour toujours afficher le formulaire -->
-        <form @submit.prevent="submitForm" class="new-client-form">
+        <form v-if="clientType === 'new'" @submit.prevent="submitForm" class="new-client-form">
           <div class="form-section">
             <h3 class="form-section-title">Informations personnelles</h3>
             <div class="form-grid">
@@ -274,12 +269,9 @@
   const emit = defineEmits(['update-client', 'next-step']);
   
   // États locaux
-  // Modifié pour toujours mettre en 'new'
-  const clientType = ref('new');
-  
-  // Commenté car non utilisé
-  // const selectedClientId = ref('');
-  // const clientPreview = ref(null);
+  const clientType = ref('existing');
+  const selectedClientId = ref('');
+  const clientPreview = ref(null);
   
   // Modèle de données pour le formulaire
   const formData = reactive({
@@ -303,8 +295,6 @@
     return `${firstname ? firstname[0] : ''}${lastname ? lastname[0] : ''}`.toUpperCase();
   };
   
-  // Commenté car on désactive cette fonctionnalité
-  /*
   // Définir le type de client (nouveau ou existant)
   const setClientType = (type) => {
     clientType.value = type;
@@ -319,26 +309,31 @@
       });
     }
   };
-  */
   
   // Vérifier si on peut passer à l'étape suivante
-  // Modifié pour ne vérifier que les nouveaux clients
   const canProceed = computed(() => {
+    // Si client existant, un client doit être sélectionné
+    if (clientType.value === 'existing') {
+      return !!selectedClientId.value;
+    }
+    
     // Si nouveau client, les champs obligatoires doivent être remplis
-    return (
-      formData.nom &&
-      formData.prenom &&
-      formData.email &&
-      formData.telephone &&
-      formData.adresse &&
-      formData.numero_domicile &&
-      formData.code_postal &&
-      formData.ville
-    );
+    if (clientType.value === 'new') {
+      return (
+        formData.nom &&
+        formData.prenom &&
+        formData.email &&
+        formData.telephone &&
+        formData.adresse &&
+        formData.numero_domicile &&
+        formData.code_postal &&
+        formData.ville
+      );
+    }
+    
+    return false;
   });
   
-  // Commenté car on désactive cette fonctionnalité
-  /*
   // Gérer la sélection d'un client existant
   const handleExistingClientSelect = () => {
     if (!selectedClientId.value) {
@@ -353,11 +348,15 @@
       Object.assign(formData, selectedClient);
     }
   };
-  */
+  
+  // Formater le numéro de TVA
+ 
   
   // Soumettre le formulaire
   const submitForm = () => {
     if (!canProceed.value) return;
+    
+    // Formater le numéro de TVA
     
     // Émettre les données client mises à jour
     emit('update-client', formData);
@@ -368,7 +367,6 @@
   </script>
   
   <style scoped>
-  /* Le CSS reste inchangé */
   .client-info-container {
     display: flex;
     flex-direction: column;
