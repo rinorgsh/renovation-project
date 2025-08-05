@@ -1,7 +1,7 @@
 <template>
   <Layout currentPage="dashboard">
     <h1 class="page-title">Tableau de Bord</h1>
-
+    
     <!-- Stats Cards -->
     <div class="stats-container">
       <div class="stat-card" v-for="(stat, index) in stats" :key="index">
