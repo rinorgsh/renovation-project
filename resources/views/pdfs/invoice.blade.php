@@ -298,7 +298,7 @@
 
     <div class="footer">
         <p>Renowall</p>
-        TVA BE 1020 695 663 | +32 2 616 2280 | info@renowall.be | www.renowall.be
+        TVA BE 1020 695 663 | +32 2 616 2280 | info-reno@renowall.be | www.renowall.be
         <div style="text-align: right; margin-top: 5px;">{{ date('d/m/Y') }}</div>
     </div>
 </body>

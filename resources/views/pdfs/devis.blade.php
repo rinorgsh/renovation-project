@@ -475,7 +475,7 @@ body {
             <h3>Article 1: en vigueur termes généraux et définitions</h3>
             <p>Sauf preuve contraire, les présentes conditions générales s'appliquent toujours à tous les accords, devis et commandes, ainsi qu'à toutes les livraisons, ventes et prestations qui en résultent et fournies par Renowall au client.</p>
             <p>Les définitions suivantes s'appliquent aux présentes conditions générales.</p>
-            <p>a) <strong>Renowall</strong> : Renowall, dont le siège social est situé à Oudesmidsestraat 20, 1700 Dilbeek, adresse e-mail : info@renowall.be, sous le nom commercial Renowall.</p>
+            <p>a) <strong>Renowall</strong> : Renowall, dont le siège social est situé à Oudesmidsestraat 20, 1700 Dilbeek, adresse e-mail : info-reno@renowall.be, sous le nom commercial Renowall.</p>
             <p>b) <strong>Acheteur</strong> : la personne physique ou morale qui utilise ou souhaite utiliser les produits et/ou services de Renowall, ou la personne qui a de quelque manière que ce soit manifesté son intérêt pour les produits et/ou services de Renowall.</p>
             <p>c) <strong>Parties</strong> : l'Acheteur et Renowall.</p>
             <p>d) <strong>Accord</strong> : tout accord entre l'Acheteur et Renowall, tout ajout ou modification à celui-ci et tous les actes juridiques qui en résultent pour la préparation et la mise en œuvre de l'accord.</p>
