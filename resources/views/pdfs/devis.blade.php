@@ -331,7 +331,7 @@ body {
                 <p>
                     Oudesmidsestraat 20,<br>
                     1700 Dilbeek<br>
-                    Tél: +32 2 616 2280 <br>
+                    Tél: +32 2 616 2282 <br>
                     Email: info-reno@renowall.be<br>
                     Web: www.renowall.be
                 </p>
@@ -456,7 +456,7 @@ body {
     <!-- Pied de page -->
     <div class="footer">
         <p><strong>Renowall</strong> </p>
-        <p> +32 2 616 2280 </p>
+        <p> +32 2 616 2282 </p>
         <p>TVA BE 1020 695 663</p>
         <p>Merci pour votre confiance. Pour toute question concernant ce bon de commande, n'hésitez pas à nous contacter.</p>
     </div>
