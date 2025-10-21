@@ -185,7 +185,7 @@
             <img src="image/logo.png" alt="Renowall" height="150" weight= "150">
             </div>
         <div class="company-info">
-            <strong>Renowall</strong><br>
+            <strong>Renowall Solution SRL</strong><br>
             Oudesmidsestraat 20,<br>
             1700 Dilbeek<br>
             Tél: +32 2 616 2282 <br>
@@ -286,7 +286,7 @@
         <strong>Communication libre:</strong> Facture Renowall -  #{{ $devis->numero_devis }}<br><br>
             
             <strong>Coordonnées bancaires:</strong><br>
-            IBAN: BE24 0019 4626 0338<br>
+            IBAN: BE63 0020 1728 0708<br>
         </div>
     </div>
     
@@ -297,7 +297,7 @@
     <br>
 
     <div class="footer">
-        <p>Renowall</p>
+        <p>RRenowall Solution SRL</p>
         TVA BE 1020 695 663 | +32 2 616 2282 | info-reno@renowall.be | www.renowall.be
         <div style="text-align: right; margin-top: 5px;">{{ date('d/m/Y') }}</div>
     </div>

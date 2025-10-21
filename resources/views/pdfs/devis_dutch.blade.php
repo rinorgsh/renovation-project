@@ -455,7 +455,7 @@ body {
 
     <!-- Voettekst -->
     <div class="footer">
-        <p><strong>Renowall</strong> </p>
+        <p><strong>Renowall Solution SRL</strong> </p>
         <p> +32 2 616 2280 </p>
         <p>BTW BE 1020 695 663</p>
         <p>Bedankt voor uw vertrouwen. Voor vragen over deze bestelbon kunt u contact met ons opnemen.</p>
