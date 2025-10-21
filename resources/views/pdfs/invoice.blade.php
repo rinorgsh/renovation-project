@@ -297,7 +297,7 @@
     <br>
 
     <div class="footer">
-        <p>RRenowall Solution SRL</p>
+        <p>Renowall Solution SRL</p>
         TVA BE 1020 695 663 | +32 2 616 2282 | info-reno@renowall.be | www.renowall.be
         <div style="text-align: right; margin-top: 5px;">{{ date('d/m/Y') }}</div>
     </div>
